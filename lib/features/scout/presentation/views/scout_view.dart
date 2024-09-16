@@ -15,7 +15,7 @@ class _ScoutViewState extends State<ScoutView> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const CustomScoutDrawer(),
-      appBar: customScoutAppBar(),
+      appBar: customScoutAppBar(context),
       body: const ScoutViewBody(),
     );
   }
