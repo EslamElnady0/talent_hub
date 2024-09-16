@@ -35,6 +35,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   fluttertoast: ^8.2.8
   shared_preferences: ^2.3.2
+  font_awesome_flutter: ^10.7.0
 
 dev_dependencies:
   flutter_lints: ^3.0.0
@@ -52,7 +53,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+
     - assets/fonts/
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see
@@ -63,6 +66,11 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+
+    - family: Outfit
+      fonts:
+        - asset: assets/fonts/Outfit-Regular.ttf
+
     - family: AzeretMono
       fonts:
         - asset: assets/fonts/AzeretMono-Regular.ttf
@@ -75,6 +83,7 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
