@@ -10,7 +10,7 @@ class AppRouter {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case onboarding:
-        return MaterialPageRoute(builder: (context) => const SplashView());
+        return MaterialPageRoute(builder: (context) => const OnBoardingView());
       case home:
         return MaterialPageRoute(builder: (context) => const HomeView());
       default:
