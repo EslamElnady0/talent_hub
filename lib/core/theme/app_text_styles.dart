@@ -17,4 +17,9 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     color: AppColors.white,
   );
+
+  static TextStyle font64DarkReg = TextStyle(
+    fontSize: 64.sp,
+    color: AppColors.black,
+  );
 }
