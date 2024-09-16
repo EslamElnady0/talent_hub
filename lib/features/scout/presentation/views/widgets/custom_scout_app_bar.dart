@@ -34,7 +34,7 @@ AppBar customScoutAppBar() {
               padding: EdgeInsetsDirectional.only(bottom: 3, end: 3),
               child: CircleAvatar(
                 radius: 5,
-                backgroundColor: AppColors.primary,
+                backgroundColor: AppColors.primaryColor,
               ),
             )
           ],
@@ -47,7 +47,7 @@ AppBar customScoutAppBar() {
         Text('Talent H'),
         FaIcon(
           FontAwesomeIcons.futbol,
-          color: AppColors.primary,
+          color: AppColors.primaryColor,
           //size: 25,
         ),
         Text('B'),
@@ -56,7 +56,7 @@ AppBar customScoutAppBar() {
     actions: [
       const FaIcon(
         FontAwesomeIcons.facebookMessenger,
-        color: AppColors.primary,
+        color: AppColors.primaryColor,
         //size: 25,
       ),
       hGap(15),

@@ -31,7 +31,7 @@ class CustomScoutDrawer extends StatelessWidget {
                       child: IconButton(
                         icon: const Icon(
                           Icons.camera_alt_outlined,
-                          color: AppColors.primary,
+                          color: AppColors.primaryColor,
                           size: 19,
                         ),
                         onPressed: () {},
