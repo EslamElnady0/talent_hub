@@ -51,7 +51,7 @@ class OnboardingViewBody extends StatelessWidget {
                 onPressed: () {
                   context.pushNamed(AppRouter.register);
                 },
-                backgroundColor: const Color(0xFFEEEEEE),
+                backgroundColor: AppColors.smoke,
               ),
             ],
           ),
