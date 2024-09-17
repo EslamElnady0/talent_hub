@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+
+import 'package:talent_hub/features/chat/presentation/views/chat_details_view.dart';
+import 'package:talent_hub/features/chat/presentation/views/chat_inbox_view.dart';
+
 import 'package:talent_hub/features/auth/presentation/views/forgot_pass_view/forgot_pass_view.dart';
 import 'package:talent_hub/features/auth/presentation/views/login_view/login_view.dart';
 import 'package:talent_hub/features/auth/presentation/views/register_view/register_view.dart';
@@ -13,10 +17,11 @@ class AppRouter {
   static const String onboarding = '/onboarding';
   static const String splash = '/';
   static const String home = '/home';
+
+  static const String chatInbox = '/chatInbox';
+  static const String chatDetails = '/chatDetails';
+
   static const String scout = '/scout';
-  static const String login = '/login';
-  static const String register = '/register';
-  static const String forgotPassword = '/forgotPassword';
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -30,15 +35,6 @@ class AppRouter {
 
       case splash:
         return MaterialPageRoute(builder: (context) => const SplashView());
-
-      case login:
-        return MaterialPageRoute(builder: (context) => const LoginView());
-
-      case register:
-        return MaterialPageRoute(builder: (context) => const RegisterView());
-
-      case forgotPassword:
-        return MaterialPageRoute(builder: (context) => const ForgotPassView());
 
       default:
         return null;

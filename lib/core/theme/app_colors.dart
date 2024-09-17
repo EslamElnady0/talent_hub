@@ -7,6 +7,7 @@ class AppColors {
   static const Color black = Color(0xFF000000);
 
   static const Color primaryColor = Color(0xFFFF5050);
+  static const Color lightGrey = Color(0xFFE5E5E5);
 
   static const Color smoke = Color(0xFFEEEEEE);
 
