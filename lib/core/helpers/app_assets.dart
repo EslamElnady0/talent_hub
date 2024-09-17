@@ -10,6 +10,8 @@ class AppAssets {
 
   static const String join = 'assets/images/join.png';
 
+  static const String signIn = 'assets/images/sign_in.png';
+
   static const String onBoardingVector1 =
       'assets/images/onboarding_vector1.png';
 
