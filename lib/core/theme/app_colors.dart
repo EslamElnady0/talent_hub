@@ -11,4 +11,6 @@ class AppColors {
   static const Color smoke = Color(0xFFEEEEEE);
 
   static const Color fieldColor = Color(0xFFA8A8A8);
+
+  static const Color grey = Color(0xFF5B5757);
 }
