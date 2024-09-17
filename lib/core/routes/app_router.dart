@@ -23,6 +23,10 @@ class AppRouter {
 
   static const String scout = '/scout';
 
+  static const String login = '/login';
+  static const String register = '/register';
+  static const String forgotPassword = '/forgotPassword';
+
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case onboarding:
@@ -35,6 +39,21 @@ class AppRouter {
 
       case splash:
         return MaterialPageRoute(builder: (context) => const SplashView());
+
+      case chatDetails:
+        return MaterialPageRoute(builder: (context) => const ChatDetailsView());
+
+      case chatInbox:
+        return MaterialPageRoute(builder: (context) => const ChatInboxView());
+
+      case login:
+        return MaterialPageRoute(builder: (context) => const LoginView());
+
+      case register:
+        return MaterialPageRoute(builder: (context) => const RegisterView());
+
+      case forgotPassword:
+        return MaterialPageRoute(builder: (context) => const ForgotPassView());
 
       default:
         return null;
