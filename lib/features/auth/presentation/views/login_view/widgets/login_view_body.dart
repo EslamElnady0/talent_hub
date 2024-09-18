@@ -68,7 +68,9 @@ class LoginViewBody extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: CustomButton(
                   text: 'SIGN IN',
-                  onPressed: () {},
+                  onPressed: () {
+                    context.pushNamed(AppRouter.scout);
+                  },
                   textColor: AppColors.white,
                   backgroundColor: AppColors.black,
                 ),

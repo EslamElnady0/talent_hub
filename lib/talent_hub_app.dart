@@ -9,7 +9,6 @@ class TalentHubApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
@@ -17,7 +16,7 @@ class TalentHubApp extends StatelessWidget {
         title: 'Talent Hub',
         debugShowCheckedModeBanner: false,
         onGenerateRoute: AppRouter.onGenerateRoute,
-        initialRoute: AppRouter.scout,
+        initialRoute: AppRouter.splash,
         theme: ThemeData(
           fontFamily: 'Outfit',
           focusColor: AppColors.black,
