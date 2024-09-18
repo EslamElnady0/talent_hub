@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:talent_hub/features/chat/presentation/views/chat_details_view.dart';
 import 'package:talent_hub/features/chat/presentation/views/chat_inbox_view.dart';
 
+import 'package:talent_hub/features/auth/presentation/views/forgot_pass_view/forgot_pass_view.dart';
+import 'package:talent_hub/features/auth/presentation/views/login_view/login_view.dart';
+import 'package:talent_hub/features/auth/presentation/views/register_view/register_view.dart';
 import 'package:talent_hub/features/scout/presentation/views/scout_view.dart';
 
-
 import 'package:talent_hub/features/splash/presentation/views/splash_view.dart';
-
 
 import '../../features/home/presentation/home_view.dart';
 import '../../features/onboarding/presentation/views/onboarding_view.dart';
@@ -22,6 +23,9 @@ class AppRouter {
 
   static const String scout = '/scout';
 
+  static const String login = '/login';
+  static const String register = '/register';
+  static const String forgotPassword = '/forgotPassword';
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -38,8 +42,19 @@ class AppRouter {
 
       case chatDetails:
         return MaterialPageRoute(builder: (context) => const ChatDetailsView());
+
       case chatInbox:
         return MaterialPageRoute(builder: (context) => const ChatInboxView());
+
+      case login:
+        return MaterialPageRoute(builder: (context) => const LoginView());
+
+      case register:
+        return MaterialPageRoute(builder: (context) => const RegisterView());
+
+      case forgotPassword:
+        return MaterialPageRoute(builder: (context) => const ForgotPassView());
+
       default:
         return null;
     }
