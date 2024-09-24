@@ -11,3 +11,5 @@ class SignupErrorState extends SignupStates {
 
   SignupErrorState(this.error);
 }
+
+class SignupImagePickedState extends SignupStates {}
