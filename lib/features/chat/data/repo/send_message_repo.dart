@@ -34,55 +34,79 @@ class SendMessageRepo {
         .set(message.toMap());
   }
 
-  Future<void> sendRecord(
+  Future<bool> sendRecord(
       {required MessageModel voiceMessage,
       required AudioRecorder audioRecorder,
       required UserModel receivingUser}) async {
-    String? filePath = await audioRecorder.stop();
-    if (filePath != null) {
-      log(filePath);
-      String fileUrl = await sendFileMessage(
-          message: voiceMessage,
-          file: File(filePath),
-          receivingUser: receivingUser);
-      voiceMessage.message = fileUrl;
-      sendTextMessage(message: voiceMessage, receivingUser: receivingUser);
+    try {
+      String? filePath = await audioRecorder.stop();
+      if (filePath != null) {
+        log(filePath);
+        String fileUrl = await sendFileMessage(
+            message: voiceMessage,
+            file: File(filePath),
+            receivingUser: receivingUser);
+        voiceMessage.message = fileUrl;
+        sendTextMessage(message: voiceMessage, receivingUser: receivingUser);
+      }
+      return true;
+    } catch (e) {
+      log("error in recording $e");
+      return false;
     }
   }
 
-  sendImage(
+  Future<bool> sendImage(
       {required MessageModel imageMessage,
       required UserModel receivingUser,
       required String? imagePath}) async {
-    String fileUrl = await sendFileMessage(
-        message: imageMessage,
-        file: File(imagePath!),
-        receivingUser: receivingUser);
-    imageMessage.message = fileUrl;
-    sendTextMessage(message: imageMessage, receivingUser: receivingUser);
+    try {
+      String fileUrl = await sendFileMessage(
+          message: imageMessage,
+          file: File(imagePath!),
+          receivingUser: receivingUser);
+      imageMessage.message = fileUrl;
+      sendTextMessage(message: imageMessage, receivingUser: receivingUser);
+      return true;
+    } catch (e) {
+      log("error in sending image $e");
+      return false;
+    }
   }
 
-  sendFile(
+  Future<bool> sendFile(
       {required MessageModel fileMessage,
       required UserModel receivingUser,
       required String? pickedFilePath}) async {
-    String fileUrl = await sendFileMessage(
-        message: fileMessage,
-        file: File(pickedFilePath!),
-        receivingUser: receivingUser);
-    fileMessage.message = fileUrl;
-    sendTextMessage(message: fileMessage, receivingUser: receivingUser);
+    try {
+      String fileUrl = await sendFileMessage(
+          message: fileMessage,
+          file: File(pickedFilePath!),
+          receivingUser: receivingUser);
+      fileMessage.message = fileUrl;
+      sendTextMessage(message: fileMessage, receivingUser: receivingUser);
+      return true;
+    } catch (e) {
+      log("error in sending file $e");
+      return false;
+    }
   }
 
-  sendVideo(
+  Future<bool> sendVideo(
       {required MessageModel videoMessage,
       required UserModel receivingUser,
       required String? videoPath}) async {
-    String fileUrl = await sendFileMessage(
-        message: videoMessage,
-        file: File(videoPath!),
-        receivingUser: receivingUser);
-    videoMessage.message = fileUrl;
-    sendTextMessage(message: videoMessage, receivingUser: receivingUser);
+    try {
+      String fileUrl = await sendFileMessage(
+          message: videoMessage,
+          file: File(videoPath!),
+          receivingUser: receivingUser);
+      videoMessage.message = fileUrl;
+      sendTextMessage(message: videoMessage, receivingUser: receivingUser);
+      return true;
+    } catch (e) {
+      log("error in sending video $e");
+      return false;
+    }
   }
 }
