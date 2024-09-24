@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:talent_hub/core/DI/dependency_injection.dart';
+import 'package:talent_hub/core/helpers/show_toast.dart';
 import 'package:talent_hub/core/helpers/spacing.dart';
 import 'package:talent_hub/core/theme/app_colors.dart';
 import 'package:talent_hub/features/auth/presentation/views/forgot_pass_view/widgets/forgot_pass_header.dart';
@@ -39,7 +42,16 @@ class _ForgotPassViewBodyState extends State<ForgotPassViewBody> {
             text: 'Reset Password',
             backgroundColor: AppColors.black,
             textColor: AppColors.white,
-            onPressed: () {},
+            onPressed: () async {
+              await getIt
+                  .get<FirebaseAuth>()
+                  .sendPasswordResetEmail(email: emailsController.text);
+
+              showToast(
+                toastMsg: 'Sent Reset Link to ${emailsController.text}',
+                state: ToastStates.success,
+              );
+            },
           ),
         ),
       ],
