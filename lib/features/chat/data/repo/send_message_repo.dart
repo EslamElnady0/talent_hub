@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:record/record.dart';
-import 'package:talent_hub/core/utils/send%20files%20utils/send_file_message.dart';
+import 'package:talent_hub/core/utils/send%20messages%20utils/send_file_message.dart';
 import '../../../../core/models/user_model.dart';
 import '../models/message_model.dart';
 
