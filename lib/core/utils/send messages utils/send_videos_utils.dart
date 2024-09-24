@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
@@ -7,6 +8,7 @@ Future<Uint8List?> pickVideoFromGallery({required String? videoPath}) async {
   var file = await imagePicker.pickVideo(source: ImageSource.gallery);
   if (file != null) {
     videoPath = file.path;
+    log("video path $videoPath");
     return await VideoThumbnail.thumbnailData(
       video: videoPath,
       imageFormat: ImageFormat.JPEG,
