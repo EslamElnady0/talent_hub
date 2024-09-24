@@ -1,6 +1,6 @@
 import 'package:image_picker/image_picker.dart';
 
-Future<String?> pickImageFromGallery() async {
+Future<String?> pickImageFromGalleryHelper() async {
   ImagePicker imagePicker = ImagePicker();
   var file = await imagePicker.pickImage(source: ImageSource.gallery);
   if (file != null) {
@@ -9,7 +9,7 @@ Future<String?> pickImageFromGallery() async {
   return null;
 }
 
-Future<String?> pickImageFromCamera() async {
+Future<String?> pickImageFromCameraHelper() async {
   ImagePicker imagePicker = ImagePicker();
   var file = await imagePicker.pickImage(source: ImageSource.camera);
   if (file != null) {

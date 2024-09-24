@@ -9,6 +9,8 @@ final class SendFileLoading extends SendFileState {}
 
 final class SendFileSuccess extends SendFileState {}
 
+final class SendFilePicked extends SendFileState {}
+
 final class SendFileFailure extends SendFileState {
   final String message;
 
