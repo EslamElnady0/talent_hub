@@ -5,9 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_hub/firebase_options.dart';
 import 'package:talent_hub/talent_hub_app.dart';
 
+import 'core/DI/dependency_injection.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
+  setupServiceLocator();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
