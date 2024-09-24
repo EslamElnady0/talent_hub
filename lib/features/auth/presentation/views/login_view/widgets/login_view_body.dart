@@ -121,7 +121,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                       } else {
                         return const CustomButton(
                           text: 'SIGN IN',
-                          widget: CircularProgressIndicator(),
+                          widget:
+                              CircularProgressIndicator(color: AppColors.white),
                           textColor: AppColors.white,
                           backgroundColor: AppColors.black,
                         );
