@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:talent_hub/core/failure/failure.dart';
-import 'package:talent_hub/features/auth/data/models/user_model.dart';
+import 'package:talent_hub/core/models/user_model.dart';
 import 'package:talent_hub/features/auth/data/repo/user_repo.dart';
 
 class AuthRepoImpl extends AuthRepo {

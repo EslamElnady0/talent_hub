@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:talent_hub/features/auth/data/models/user_model.dart';
+import 'package:talent_hub/core/models/user_model.dart';
 
 class UserRepoImpl extends UserRepo {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
