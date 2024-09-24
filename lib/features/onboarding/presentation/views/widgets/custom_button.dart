@@ -9,29 +9,35 @@ class CustomButton extends StatelessWidget {
     this.backgroundColor = AppColors.primaryColor,
     this.onPressed,
     this.textColor = AppColors.black,
+    this.widget,
   });
   final String text;
   final Color backgroundColor;
   final Color textColor;
   final void Function()? onPressed;
+  final Widget? widget;
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor,
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 10),
-        shape: RoundedRectangleBorder(
+        decoration: BoxDecoration(
+          color: backgroundColor,
           borderRadius: BorderRadius.circular(20),
         ),
-      ),
-      child: Text(
-        text,
-        style: AppTextStyles.font64DarkReg.copyWith(
-          fontFamily: 'BebasNeue',
-          fontSize: 20,
-          color: textColor,
+        child: Center(
+          child: widget ??
+              Text(
+                text,
+                style: AppTextStyles.font64DarkReg.copyWith(
+                  fontFamily: 'BebasNeue',
+                  fontSize: 20,
+                  color: textColor,
+                ),
+              ),
         ),
       ),
     );
