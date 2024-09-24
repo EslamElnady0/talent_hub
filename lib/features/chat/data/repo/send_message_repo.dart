@@ -14,24 +14,30 @@ class SendMessageRepo {
   final FirebaseStorage storage;
   SendMessageRepo(
       {required this.auth, required this.firestore, required this.storage});
-  Future<void> sendTextMessage(
+  Future<bool> sendTextMessage(
       {required MessageModel message, required UserModel receivingUser}) async {
-    await firestore
-        .collection("users")
-        .doc(auth.currentUser!.uid)
-        .collection("chats")
-        .doc(receivingUser.id)
-        .collection("messages")
-        .doc(message.textMessageId)
-        .set(message.toMap());
-    await firestore
-        .collection("users")
-        .doc(receivingUser.id)
-        .collection("chats")
-        .doc(auth.currentUser!.uid)
-        .collection("messages")
-        .doc(message.textMessageId)
-        .set(message.toMap());
+    try {
+      await firestore
+          .collection("users")
+          .doc(auth.currentUser!.uid)
+          .collection("chats")
+          .doc(receivingUser.id)
+          .collection("messages")
+          .doc(message.textMessageId)
+          .set(message.toMap());
+      await firestore
+          .collection("users")
+          .doc(receivingUser.id)
+          .collection("chats")
+          .doc(auth.currentUser!.uid)
+          .collection("messages")
+          .doc(message.textMessageId)
+          .set(message.toMap());
+      return true;
+    } catch (e) {
+      log("error in sending message $e");
+      return false;
+    }
   }
 
   Future<bool> sendRecord(
