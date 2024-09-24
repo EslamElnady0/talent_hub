@@ -5,9 +5,15 @@ import 'package:talent_hub/features/auth/presentation/views/forgot_pass_view/wid
 import 'package:talent_hub/features/auth/presentation/views/register_view/widgets/custom_text_form_field.dart';
 import 'package:talent_hub/features/onboarding/presentation/views/widgets/custom_button.dart';
 
-class ForgotPassViewBody extends StatelessWidget {
+class ForgotPassViewBody extends StatefulWidget {
   const ForgotPassViewBody({super.key});
 
+  @override
+  State<ForgotPassViewBody> createState() => _ForgotPassViewBodyState();
+}
+
+class _ForgotPassViewBodyState extends State<ForgotPassViewBody> {
+  var emailsController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,6 +24,7 @@ class ForgotPassViewBody extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: CustomTextFormField(
+            controller: emailsController,
             labelText: 'Email',
             keyboardType: TextInputType.emailAddress,
             validator: (value) {
