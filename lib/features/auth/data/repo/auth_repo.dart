@@ -1,7 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:talent_hub/core/failure/failure.dart';
 import 'package:talent_hub/core/models/user_model.dart';
 import 'package:talent_hub/features/auth/data/repo/user_repo.dart';
@@ -38,6 +36,7 @@ class AuthRepoImpl extends AuthRepo {
     String phone,
     String age,
     String position,
+    String? imageUrl,
   ) async {
     try {
       UserCredential user = await _firebaseAuth.createUserWithEmailAndPassword(
@@ -50,6 +49,7 @@ class AuthRepoImpl extends AuthRepo {
         age: age,
         email: email,
         position: position,
+        imageUrl: imageUrl,
       ));
       return const Right(true);
     } catch (e) {
@@ -83,6 +83,7 @@ abstract class AuthRepo {
     String phone,
     String age,
     String position,
+    String? imageUrl,
   );
   Future<Either<Failure, bool>> signOut();
 }

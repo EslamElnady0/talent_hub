@@ -1,8 +1,13 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:talent_hub/core/models/user_model.dart';
 
 class UserRepoImpl extends UserRepo {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore;
+  UserRepoImpl(
+    this._firestore,
+  );
 
   @override
   CollectionReference<UserModel> getUsersCollection() {
