@@ -97,7 +97,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   child: BlocConsumer<LoginCubit, LoginStates>(
                     listener: (context, state) {
                       if (state is LoginSuccessState) {
-                        context.pushNamed(AppRouter.scout);
+                        context.pushNamedAndRemoveUntil(AppRouter.scout,
+                            predicate: (_) => false);
                       } else if (state is LoginErrorState) {
                         showToast(
                           toastMsg: state.error,
