@@ -14,7 +14,7 @@ class SendMessageRepo {
   final FirebaseStorage storage;
   SendMessageRepo(
       {required this.auth, required this.firestore, required this.storage});
-  Future<bool> sendTextMessage(
+  Future<bool?> sendTextMessage(
       {required MessageModel message, required UserModel receivingUser}) async {
     try {
       await firestore
@@ -36,11 +36,11 @@ class SendMessageRepo {
       return true;
     } catch (e) {
       log("error in sending message $e");
-      return false;
+      return null;
     }
   }
 
-  Future<bool> sendRecord(
+  Future<bool?> sendRecord(
       {required MessageModel voiceMessage,
       required AudioRecorder audioRecorder,
       required UserModel receivingUser}) async {
@@ -58,11 +58,11 @@ class SendMessageRepo {
       return true;
     } catch (e) {
       log("error in recording $e");
-      return false;
+      return null;
     }
   }
 
-  Future<bool> sendImage(
+  Future<bool?> sendImage(
       {required MessageModel imageMessage,
       required UserModel receivingUser,
       required String? imagePath}) async {
@@ -76,11 +76,11 @@ class SendMessageRepo {
       return true;
     } catch (e) {
       log("error in sending image $e");
-      return false;
+      return null;
     }
   }
 
-  Future<bool> sendFile(
+  Future<bool?> sendFile(
       {required MessageModel fileMessage,
       required UserModel receivingUser,
       required String? pickedFilePath}) async {
@@ -94,11 +94,11 @@ class SendMessageRepo {
       return true;
     } catch (e) {
       log("error in sending file $e");
-      return false;
+      return null;
     }
   }
 
-  Future<bool> sendVideo(
+  Future<bool?> sendVideo(
       {required MessageModel videoMessage,
       required UserModel receivingUser,
       required String? videoPath}) async {
@@ -112,7 +112,7 @@ class SendMessageRepo {
       return true;
     } catch (e) {
       log("error in sending video $e");
-      return false;
+      return null;
     }
   }
 }

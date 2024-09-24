@@ -9,4 +9,9 @@ final class SendRecordLoading extends SendRecordState {}
 
 final class SendRecordSuccess extends SendRecordState {}
 
-final class SendRecordFailure extends SendRecordState {}
+final class SendRecordRecording extends SendRecordState {}
+
+final class SendRecordFailure extends SendRecordState {
+  final String message;
+  SendRecordFailure({required this.message});
+}
