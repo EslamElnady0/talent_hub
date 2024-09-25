@@ -41,6 +41,7 @@ class PostsCubit extends Cubit<PostState> {
     emit(GetPostsLoadingState());
     FirebaseFirestore.instance
         .collection('posts')
+        .orderBy('createdAt', descending: true)
         .get()
         .then((value)
     {
@@ -67,4 +68,5 @@ class PostsCubit extends Cubit<PostState> {
     }).catchError((error) {
       emit(LikePostErrorState(error.toString()));
     });
-  }}
+  }
+}
