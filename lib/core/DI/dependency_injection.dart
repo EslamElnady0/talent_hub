@@ -4,8 +4,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:talent_hub/features/auth/data/repo/auth_repo.dart';
 import 'package:talent_hub/features/auth/data/repo/user_repo.dart';
+import 'package:talent_hub/features/chat/data/repo/get_all_chats_repo.dart';
 import 'package:talent_hub/features/chat/data/repo/get_messages_repo.dart';
 import 'package:talent_hub/features/chat/data/repo/send_message_repo.dart';
+import 'package:talent_hub/features/chat/presentation/view%20models/get%20all%20chats%20cubit/get_all_chats_cubit.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/get%20messages%20cubit/get_messages_cubit.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20file%20cubit/send_file_cubit.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20record%20cubit/send_record_cubit.dart';
@@ -28,6 +30,10 @@ void setupServiceLocator() {
         auth: getIt.get<FirebaseAuth>(),
         firestore: getIt.get<FirebaseFirestore>(),
       ));
+  getIt.registerLazySingleton<GetAllChatsRepo>(() => GetAllChatsRepo(
+        auth: getIt.get<FirebaseAuth>(),
+        firestore: getIt.get<FirebaseFirestore>(),
+      ));
 
   /////////////////////// chat cubits /////////////////////
   getIt.registerFactory<SendFileCubit>(
@@ -38,4 +44,6 @@ void setupServiceLocator() {
       () => SendTextCubit(getIt.get<SendMessageRepo>()));
   getIt.registerFactory<GetMessagesCubit>(
       () => GetMessagesCubit(getIt.get<GetMessagesRepo>()));
+  getIt.registerFactory<GetAllChatsCubit>(
+      () => GetAllChatsCubit(getIt.get<GetAllChatsRepo>()));
 }
