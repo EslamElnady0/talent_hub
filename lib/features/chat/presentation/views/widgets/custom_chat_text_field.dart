@@ -3,18 +3,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_hub/core/theme/app_colors.dart';
 
 class CustomChatTextField extends StatelessWidget {
-  const CustomChatTextField({super.key});
+  final TextEditingController controller;
+  const CustomChatTextField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       minLines: 1,
       maxLines: 5,
       cursorColor: AppColors.primaryColor,
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
         filled: true,
-        fillColor: Colors.grey.shade900,
+        fillColor: AppColors.darkGrey,
         hintText: 'Type a message...',
         hintStyle: TextStyle(color: Colors.grey.shade500),
         contentPadding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 20.w),
@@ -30,10 +32,10 @@ class CustomChatTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.r),
           borderSide: const BorderSide(color: AppColors.primaryColor, width: 2),
         ),
-        suffixIcon: IconButton(
-          icon: const Icon(Icons.send, color: AppColors.primaryColor),
-          onPressed: () {},
-        ),
+        // suffixIcon: IconButton(
+        //   icon: const Icon(Icons.send, color: AppColors.primaryColor),
+        //   onPressed: () {},
+        // ),
       ),
     );
   }
