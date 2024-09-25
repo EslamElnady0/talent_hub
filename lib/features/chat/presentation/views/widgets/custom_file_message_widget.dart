@@ -9,6 +9,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../../core/DI/dependency_injection.dart';
 import '../../../../../core/helpers/spacing.dart';
+import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_text_styles.dart';
 
 class CustomFileMessageWidget extends StatefulWidget {
@@ -67,17 +68,19 @@ class _CustomFileMessageWidgetState extends State<CustomFileMessageWidget> {
                     return Icon(
                       Icons.file_copy,
                       size: 30.r,
+                      color: AppColors.white,
                     );
                   } else {
                     return Icon(
                       Icons.download,
                       size: 30.r,
+                      color: AppColors.white,
                     );
                   }
                 }),
             hGap(15),
             SizedBox(
-                width: 200.w,
+                width: 150.w,
                 child: Text(
                   fileName,
                   style: AppTextStyles.font15WhiteW500,

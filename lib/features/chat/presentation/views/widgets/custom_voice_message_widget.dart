@@ -1,11 +1,15 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talent_hub/core/theme/app_colors.dart';
 import '../../../../../core/theme/app_text_styles.dart';
 
 class CustomVoiceMessageWidget extends StatefulWidget {
   final String voiceMessagePath;
-  const CustomVoiceMessageWidget({super.key, required this.voiceMessagePath});
+  const CustomVoiceMessageWidget({
+    super.key,
+    required this.voiceMessagePath,
+  });
 
   @override
   State<CustomVoiceMessageWidget> createState() =>
@@ -84,8 +88,11 @@ class _CustomVoiceMessageWidgetState extends State<CustomVoiceMessageWidget>
                   icon: Icon(
                     isPlaying ? Icons.pause : Icons.play_arrow,
                     size: 30.r,
+                    color: AppColors.white,
                   )),
               Slider(
+                activeColor: AppColors.lightGrey,
+                thumbColor: AppColors.lightGrey,
                 min: 0,
                 max: duration.inSeconds.toDouble(),
                 value: position.inSeconds.toDouble(),
@@ -99,13 +106,16 @@ class _CustomVoiceMessageWidgetState extends State<CustomVoiceMessageWidget>
               )
             ],
           ),
-          Padding(
-            padding: EdgeInsets.only(right: 12.w),
-            child: isPlaying
-                ? Text(formateTime(position),
-                    style: AppTextStyles.font12WhiteW500)
-                : Text(formateTime(duration),
-                    style: AppTextStyles.font12WhiteW500),
+          Align(
+            alignment: Alignment.center,
+            child: Padding(
+              padding: EdgeInsets.only(right: 80.w),
+              child: isPlaying
+                  ? Text(formateTime(position),
+                      style: AppTextStyles.font12WhiteW500)
+                  : Text(formateTime(duration),
+                      style: AppTextStyles.font12WhiteW500),
+            ),
           ),
         ],
       ),
