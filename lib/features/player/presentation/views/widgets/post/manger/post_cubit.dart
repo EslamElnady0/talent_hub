@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talent_hub/features/player/presentation/model/player_model.dart';
@@ -12,28 +14,37 @@ class PostsCubit extends Cubit<PostState> {
   late Player playerModel;
 
   void createPost({
-    required String uId,
     required String description,
-    required String postVideo,
-  }) {
+    required File videoFile,
+  }) async {
     emit(CreatePostLoadingState());
-    Post postModel = Post(
-      playerId: playerModel.uId,
-      createdAt: DateTime.now(),
-      uId: uId,
-      description: description,
-      videoUrl: postVideo,
-      comments: [],
-      likes: [],
-    );
-    FirebaseFirestore.instance
-        .collection('posts')
-        .add(postModel.toMap())
-        .then((value) {
+
+    try {
+      String videoFileName = DateTime.now().millisecondsSinceEpoch.toString();
+      final storageRef = FirebaseStorage.instance.ref().child('posts/$videoFileName');
+
+      UploadTask uploadTask = storageRef.putFile(videoFile);
+      TaskSnapshot storageSnapshot = await uploadTask;
+
+      String videoUrl = await storageSnapshot.ref.getDownloadURL();
+
+      Post postModel = Post(
+        uId: playerModel.uId,
+        createdAt: DateTime.now(),
+        description: description,
+        videoUrl: videoUrl,
+        comments: [],
+        likes: [],
+      );
+
+      await FirebaseFirestore.instance
+          .collection('posts')
+          .add(postModel.toMap());
+
       emit(CreatePostSuccessState());
-    }).catchError((error) {
+    } catch (error) {
       emit(CreatePostErrorState(error.toString()));
-    });
+    }
   }
   List<Post> postsList = [];
   void getPosts()

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Post {
   String uId;
-  String playerId;
   String videoUrl;
   String description;
   DateTime createdAt;
@@ -11,7 +10,6 @@ class Post {
 
   Post({
     required this.uId,
-    required this.playerId,
     required this.videoUrl,
     required this.description,
     required this.createdAt,
@@ -22,7 +20,6 @@ class Post {
   factory Post.fromMap(Map<String, dynamic> map) {
     return Post(
       uId: map['uId'],
-      playerId: map['playerId'],
       videoUrl: map['videoUrl'],
       description: map['description'],
       createdAt: (map['createdAt'] as Timestamp).toDate(),
@@ -34,7 +31,6 @@ class Post {
   Map<String, dynamic> toMap() {
     return {
       'uId': uId,
-      'playerId': playerId,
       'videoUrl': videoUrl,
       'description': description,
       'createdAt': createdAt,
@@ -49,6 +45,7 @@ class Comment {
   String username;
   String text;
   DateTime commentedAt;
+
 
   Comment({
     required this.userId,
