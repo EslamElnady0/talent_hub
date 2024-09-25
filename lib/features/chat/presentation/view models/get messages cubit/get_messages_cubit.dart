@@ -14,7 +14,6 @@ class GetMessagesCubit extends Cubit<GetMessagesState> {
 
   Stream<List<MessageModel>?> getAllMessages(
       {required String receivingUserId}) {
-    emit(GetMessagesLoading());
     return getMessagesRepo
         .getAllMessages(
             receivingUserId: receivingUserId,
@@ -25,7 +24,6 @@ class GetMessagesCubit extends Cubit<GetMessagesState> {
                   curve: Curves.easeIn);
             })
         .map((event) {
-      emit(GetMessagesSuccess());
       return event;
     });
   }
