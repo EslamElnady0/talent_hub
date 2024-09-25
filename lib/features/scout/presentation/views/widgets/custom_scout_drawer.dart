@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:talent_hub/core/helpers/app_assets.dart';
+import 'package:talent_hub/core/helpers/extensions.dart';
 import 'package:talent_hub/core/theme/app_colors.dart';
 import 'package:talent_hub/features/scout/presentation/views/widgets/custom_drawer_section.dart';
+
+import '../../../../../core/routes/app_router.dart';
 
 class CustomScoutDrawer extends StatelessWidget {
   const CustomScoutDrawer({super.key});
@@ -46,7 +49,8 @@ class CustomScoutDrawer extends StatelessWidget {
               ],
             ),
           ),
-          const CustomDrawerSection(
+           CustomDrawerSection(
+            onTap: ()=>context.pushNamed(AppRouter.playerProfile),
             title: "Profile",
             icon: Icons.person,
           ),

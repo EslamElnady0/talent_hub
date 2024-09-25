@@ -7,14 +7,16 @@ class CustomDrawerSection extends StatelessWidget {
     super.key,
     required this.title,
     required this.icon,
+    this.onTap,
   });
 
   final String title;
   final IconData icon;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.pop(context),
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(10),
         margin: const EdgeInsets.all(10),
