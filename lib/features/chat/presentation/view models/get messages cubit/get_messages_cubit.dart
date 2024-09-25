@@ -1,6 +1,11 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:talent_hub/core/DI/dependency_injection.dart';
 import 'package:talent_hub/features/chat/data/repo/get_messages_repo.dart';
 
 import '../../../data/models/message_model.dart';
@@ -10,21 +15,36 @@ part 'get_messages_state.dart';
 class GetMessagesCubit extends Cubit<GetMessagesState> {
   GetMessagesCubit(this.getMessagesRepo) : super(GetMessagesInitial());
   final GetMessagesRepo getMessagesRepo;
-  final ScrollController scrollController = ScrollController();
+  late ScrollController scrollController;
 
-  Stream<List<MessageModel>?> getAllMessages(
-      {required String receivingUserId}) {
-    return getMessagesRepo
-        .getAllMessages(
-            receivingUserId: receivingUserId,
-            scrollToBottom: () {
-              scrollController.animateTo(
-                  scrollController.position.maxScrollExtent,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeIn);
-            })
-        .map((event) {
-      return event;
-    });
+  Stream<List<MessageModel>> getAllMessages({required String receivingUserId}) {
+    try {
+      return getIt
+          .get<FirebaseFirestore>()
+          .collection('users')
+          .doc(getIt.get<FirebaseAuth>().currentUser!.uid)
+          .collection('chats')
+          .doc(receivingUserId)
+          .collection('messages')
+          .orderBy('createdAt')
+          .snapshots()
+          .map((event) {
+        WidgetsBinding.instance.addPostFrameCallback((_) => scrollToBottom());
+        return event.docs.map((e) => MessageModel.fromMap(e.data())).toList();
+      });
+    } catch (e) {
+      log(e.toString());
+      return Stream.value([]);
+    }
+  }
+
+  scrollToBottom() {
+    if (scrollController.hasClients) {
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeIn,
+      );
+    }
   }
 }

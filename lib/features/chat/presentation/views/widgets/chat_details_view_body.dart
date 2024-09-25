@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_hub/core/DI/dependency_injection.dart';
 import 'package:talent_hub/core/helpers/spacing.dart';
 import 'package:talent_hub/features/chat/data/models/message_model.dart';
+import 'package:talent_hub/features/chat/presentation/view%20models/get%20messages%20cubit/get_messages_cubit.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20file%20cubit/send_file_cubit.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20record%20cubit/send_record_cubit.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20text%20cubit/send_text_cubit.dart';
@@ -30,12 +31,16 @@ class _ChatDetailsViewBodyState extends State<ChatDetailsViewBody> {
   @override
   void initState() {
     chatController = TextEditingController();
+    context.read<GetMessagesCubit>().scrollController = ScrollController();
     super.initState();
   }
 
   @override
   void dispose() {
     chatController.dispose();
+    if (context.mounted) {
+      context.read<GetMessagesCubit>().scrollController.dispose();
+    }
     super.dispose();
   }
 

@@ -34,7 +34,8 @@ class ChatDetailsChatListView extends StatelessWidget {
                     return Center(
                         child: Text(
                       "No messages yet",
-                      style: AppTextStyles.font15WhiteW500,
+                      style: AppTextStyles.font15WhiteW500
+                          .copyWith(color: AppColors.black),
                     ));
                   } else if (snapshot.data!.isNotEmpty) {
                     return ListView.separated(

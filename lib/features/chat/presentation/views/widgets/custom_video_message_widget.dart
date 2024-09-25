@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_hub/core/helpers/extensions.dart';
+import 'package:talent_hub/core/theme/app_colors.dart';
 import 'package:video_cached_player/video_cached_player.dart';
 
 class CustomVideoMessageWidget extends StatefulWidget {
@@ -14,23 +15,40 @@ class CustomVideoMessageWidget extends StatefulWidget {
 
 class _CustomVideoMessageWidgetState extends State<CustomVideoMessageWidget> {
   bool isPlaying = false;
-  bool isLoading = false;
+  bool isLoading = true; // Default to loading
   late CachedVideoPlayerController videoPlayerController;
+
   @override
   void initState() {
+    super.initState();
+    // Initialize the video player
     videoPlayerController = CachedVideoPlayerController.network(widget.videoUrl)
-      ..addListener(() {})
-      ..initialize().then((value) {
-        videoPlayerController.setVolume(1);
+      ..addListener(() {
+        if (videoPlayerController.value.hasError) {
+          // Handle video load error
+          print("Video Error: ${videoPlayerController.value.errorDescription}");
+          setState(() {
+            isLoading = false;
+          });
+        }
+      })
+      ..initialize().then((_) {
+        // Video initialized successfully
+        setState(() {
+          isLoading = false;
+        });
+      }).catchError((error) {
+        // Handle initialization error
+        print("Video initialization error: $error");
         setState(() {
           isLoading = false;
         });
       });
-    super.initState();
   }
 
   @override
   void dispose() {
+    // Dispose the video player properly
     videoPlayerController.dispose();
     super.dispose();
   }
@@ -45,9 +63,13 @@ class _CustomVideoMessageWidgetState extends State<CustomVideoMessageWidget> {
           alignment: Alignment.center,
           children: [
             isLoading
-                ? const Center(child: CircularProgressIndicator())
+                ? const Center(
+                    child: CircularProgressIndicator(
+                    color: AppColors.white,
+                  ))
                 : CachedVideoPlayer(videoPlayerController),
-            IconButton(
+            if (!isLoading)
+              IconButton(
                 onPressed: () {
                   setState(() {
                     isPlaying = !isPlaying;
@@ -62,7 +84,8 @@ class _CustomVideoMessageWidgetState extends State<CustomVideoMessageWidget> {
                   isPlaying ? Icons.pause : Icons.play_arrow,
                   size: 30.r,
                   color: Colors.white,
-                ))
+                ),
+              ),
           ],
         ),
       ),
