@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
-import '../../../../../core/models/user_model.dart';
 import '../../../data/models/message_model.dart';
 import '../../../data/repo/send_message_repo.dart';
 part 'send_record_state.dart';
@@ -15,9 +14,7 @@ class SendRecordCubit extends Cubit<SendRecordState> {
   final SendMessageRepo sendMessageRepo;
   AudioRecorder audioRecorder = AudioRecorder();
   bool? flag;
-  void startRecording({
-    required AudioRecorder audioRecorder,
-  }) async {
+  void startRecording() async {
     try {
       if (await audioRecorder.hasPermission()) {
         emit(SendRecordRecording());
@@ -25,7 +22,6 @@ class SendRecordCubit extends Cubit<SendRecordState> {
         final String recFilePath = p.join(
             appDocDir.path, '${DateTime.now().millisecondsSinceEpoch}.m4a');
         await audioRecorder.start(const RecordConfig(), path: recFilePath);
-        emit(SendRecordInitial());
       }
     } catch (e) {
       log("error in recording $e");
@@ -35,12 +31,12 @@ class SendRecordCubit extends Cubit<SendRecordState> {
 
   Future<void> sendRecord(
       {required MessageModel voiceMessage,
-      required UserModel receivingUser}) async {
+      required String receivingUserId}) async {
     emit(SendRecordLoading());
     flag = await sendMessageRepo.sendRecord(
         voiceMessage: voiceMessage,
         audioRecorder: audioRecorder,
-        receivingUser: receivingUser);
+        receivingUserId: receivingUserId);
     if (flag!) {
       emit(SendRecordSuccess());
     } else {
@@ -48,9 +44,7 @@ class SendRecordCubit extends Cubit<SendRecordState> {
     }
   }
 
-  void stopRecording({
-    required AudioRecorder audioRecorder,
-  }) async {
+  void stopRecording() async {
     await audioRecorder.cancel();
     emit(SendRecordInitial());
   }

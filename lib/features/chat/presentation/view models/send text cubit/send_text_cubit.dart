@@ -1,10 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:talent_hub/features/chat/data/repo/send_message_repo.dart';
-
-import '../../../../../core/models/user_model.dart';
 import '../../../data/models/message_model.dart';
-
 part 'send_text_state.dart';
 
 class SendTextCubit extends Cubit<SendTextState> {
@@ -13,10 +10,10 @@ class SendTextCubit extends Cubit<SendTextState> {
   bool? flag;
 
   Future<void> sendTextMessage(
-      {required MessageModel message, required UserModel receivingUser}) async {
+      {required MessageModel message, required String receivingUserId}) async {
     emit(SendTextLoading());
     flag = await sendMessageRepo.sendTextMessage(
-        message: message, receivingUser: receivingUser);
+        message: message, receivingUserId: receivingUserId);
     if (flag!) {
       emit(SendTextSuccess());
     } else {
