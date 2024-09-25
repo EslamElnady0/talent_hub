@@ -8,6 +8,7 @@ import 'package:talent_hub/features/chat/presentation/view%20models/send%20file%
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20record%20cubit/send_record_cubit.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20text%20cubit/send_text_cubit.dart';
 
+import '../../../../core/models/user_model.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import 'widgets/chat_details_appbar_leading.dart';
 import 'widgets/chat_details_view_body.dart';
@@ -17,12 +18,13 @@ class ChatDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var args = ModalRoute.of(context)!.settings.arguments as UserModel;
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 55.w,
         backgroundColor: AppColors.primaryColor,
-        leading: const ChatDetailsAppBarLeading(),
-        title: Text("User Name", style: AppTextStyles.font20WhiteW600),
+        leading: ChatDetailsAppBarLeading(image: args.imageUrl),
+        title: Text(args.name, style: AppTextStyles.font20WhiteW600),
         actions: [
           IconButton(
             onPressed: () {},
@@ -45,7 +47,7 @@ class ChatDetailsView extends StatelessWidget {
             create: (context) => getIt<GetMessagesCubit>(),
           ),
         ],
-        child: const ChatDetailsViewBody(),
+        child: ChatDetailsViewBody(user: args),
       ),
     );
   }

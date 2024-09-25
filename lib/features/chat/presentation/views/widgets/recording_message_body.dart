@@ -1,17 +1,21 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talent_hub/core/DI/dependency_injection.dart';
+import 'package:talent_hub/core/models/user_model.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20record%20cubit/send_record_cubit.dart';
-import 'package:talent_hub/main.dart';
 import 'package:uuid/uuid.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../../../../core/theme/app_text_styles.dart';
 import '../../../data/models/message_model.dart';
 
 class RecordingMessageBody extends StatefulWidget {
+  final UserModel user;
   const RecordingMessageBody({
     super.key,
+    required this.user,
   });
 
   @override
@@ -69,8 +73,8 @@ class _RecordingMessageBodyState extends State<RecordingMessageBody> {
               onPressed: () {
                 String messageId = const Uuid().v1();
                 MessageModel voiceMessage = MessageModel(
-                    senderId: sender,
-                    receiverId: receiver,
+                    senderId: getIt<FirebaseAuth>().currentUser!.uid,
+                    receiverId: widget.user.id,
                     message: "",
                     messageType: MessageType.voice,
                     createdAt: DateTime.now(),
@@ -79,7 +83,7 @@ class _RecordingMessageBodyState extends State<RecordingMessageBody> {
                 if (context.mounted) {
                   context.read<SendRecordCubit>().sendRecord(
                         voiceMessage: voiceMessage,
-                        receivingUserId: receiver,
+                        receivingUserId: widget.user.id,
                       );
                 }
               },

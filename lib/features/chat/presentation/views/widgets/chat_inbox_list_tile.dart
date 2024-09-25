@@ -17,7 +17,7 @@ class ChatInboxListTile extends StatelessWidget {
       title: Text(user.name, style: AppTextStyles.font16DarkW600),
       subtitle: const Text("last message"),
       trailing: const Text("12:00"),
-      onTap: () => context.pushNamed(AppRouter.chatDetails),
+      onTap: () => context.pushNamed(AppRouter.chatDetails, arguments: user),
     );
   }
 }
