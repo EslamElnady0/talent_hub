@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20file%20cubit/send_file_cubit.dart';
+import 'package:talent_hub/features/chat/presentation/views/widgets/picked_file_view_widget.dart';
 import 'package:talent_hub/main.dart';
 import 'package:uuid/uuid.dart';
 import '../../../../../core/DI/dependency_injection.dart';
@@ -28,6 +29,7 @@ class PickedFileWidget extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              const PickedFileViewWidget(),
               vGap(10),
               Row(children: [
                 IconButton(
