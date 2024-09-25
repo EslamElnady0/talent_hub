@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20file%20cubit/send_file_cubit.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theme/app_colors.dart';
+import '../../../../../core/theme/app_text_styles.dart';
 import '../../../data/models/message_model.dart';
 
 class PickedFileViewWidget extends StatelessWidget {
@@ -27,7 +28,7 @@ class PickedFileViewWidget extends StatelessWidget {
                     context.read<SendFileCubit>().videoThumbnail!,
                     height: 70.h,
                   ),
-                  Icon(Icons.play_arrow, size: 30.r)
+                  Icon(Icons.play_arrow, size: 30.r, color: AppColors.white)
                 ],
               )
             : Align(
@@ -42,9 +43,10 @@ class PickedFileViewWidget extends StatelessWidget {
                         size: 30.r,
                         color: AppColors.primaryColor,
                       ),
-                      hGap(15),
+                      hGap(10),
                       Text(
                         context.read<SendFileCubit>().filePath!.split('/').last,
+                        style: AppTextStyles.font15WhiteW500,
                       )
                     ],
                   ),

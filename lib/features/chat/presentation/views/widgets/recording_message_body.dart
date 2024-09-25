@@ -10,7 +10,6 @@ import '../../../../../core/theme/app_text_styles.dart';
 import '../../../data/models/message_model.dart';
 
 class RecordingMessageBody extends StatefulWidget {
-  // final UserModel user;
   const RecordingMessageBody({
     super.key,
   });

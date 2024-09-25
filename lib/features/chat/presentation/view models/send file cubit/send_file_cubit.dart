@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 import 'package:talent_hub/core/utils/send%20messages%20utils/images_utils.dart';
 import '../../../../../core/utils/send messages utils/send_files_utils.dart';
@@ -43,10 +44,10 @@ class SendFileCubit extends Cubit<SendFileState> {
     }
   }
 
-  pickVideo() async {
+  pickVideo(BuildContext context) async {
     filePath = null;
     videoThumbnail = null;
-    videoThumbnail = await pickVideoFromGallery(videoPath: filePath);
+    videoThumbnail = await pickVideoFromGallery(context);
     if (filePath != null) {
       fileType = MessageType.video;
       emit(SendFilePicked());
@@ -76,5 +77,9 @@ class SendFileCubit extends Cubit<SendFileState> {
     videoThumbnail = null;
     fileType = MessageType.text;
     emit(SendFileInitial());
+  }
+
+  chooseFileType() {
+    emit(SendFileChooseFileType());
   }
 }

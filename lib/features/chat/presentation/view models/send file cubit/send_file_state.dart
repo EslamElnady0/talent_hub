@@ -11,6 +11,8 @@ final class SendFileSuccess extends SendFileState {}
 
 final class SendFilePicked extends SendFileState {}
 
+final class SendFileChooseFileType extends SendFileState {}
+
 final class SendFileFailure extends SendFileState {
   final String message;
 

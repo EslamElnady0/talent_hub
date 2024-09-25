@@ -33,53 +33,47 @@ class PickedFileWidget extends StatelessWidget {
               vGap(10),
               Row(children: [
                 IconButton(
-                  onPressed: () async {
-                    String messageId = const Uuid().v1();
-                    if (context.read<SendFileCubit>().fileType.name ==
-                        MessageType.image.name) {
-                      MessageModel imageMessage = MessageModel(
-                          senderId: getIt.get<FirebaseAuth>().currentUser!.uid,
-                          receiverId: receiver,
-                          message: "",
-                          messageType: context
-                                      .read<SendFileCubit>()
-                                      .fileType
-                                      .name ==
-                                  MessageType.image.name
-                              ? MessageType.image
-                              : context.read<SendFileCubit>().fileType.name ==
-                                      MessageType.video.name
-                                  ? MessageType.video
-                                  : MessageType.file,
-                          createdAt: DateTime.now(),
-                          textMessageId: messageId);
-
-                      if (context.mounted) {
-                        context.read<SendFileCubit>().sendFile(
-                            fileMessage: imageMessage,
-                            receivingUserId: receiver);
-                        context.read<SendFileCubit>().filePath = null;
-                        context.read<SendFileCubit>().fileType =
-                            MessageType.text;
-                      }
-                    }
-                  },
-                  icon: Transform.rotate(
-                    angle: 3.14,
-                    child: const Icon(
-                      Icons.send,
-                      color: AppColors.primaryColor,
-                    ),
-                  ),
-                ),
-                const Spacer(),
-                IconButton(
                   onPressed: () {
                     context.read<SendFileCubit>().dismissPickedFile();
                   },
-                  icon: const Icon(Icons.delete),
+                  icon: Icon(
+                    Icons.delete,
+                    size: 26.r,
+                  ),
                   color: AppColors.red,
-                )
+                ),
+                const Spacer(),
+                IconButton(
+                  onPressed: () async {
+                    String messageId = const Uuid().v1();
+
+                    MessageModel fileMessage = MessageModel(
+                        senderId: getIt.get<FirebaseAuth>().currentUser!.uid,
+                        receiverId: receiver,
+                        message: "",
+                        messageType:
+                            context.read<SendFileCubit>().fileType.name ==
+                                    MessageType.image.name
+                                ? MessageType.image
+                                : context.read<SendFileCubit>().fileType.name ==
+                                        MessageType.video.name
+                                    ? MessageType.video
+                                    : MessageType.file,
+                        createdAt: DateTime.now(),
+                        textMessageId: messageId);
+
+                    if (context.mounted) {
+                      context.read<SendFileCubit>().sendFile(
+                          fileMessage: fileMessage, receivingUserId: receiver);
+                      context.read<SendFileCubit>().filePath = null;
+                      context.read<SendFileCubit>().fileType = MessageType.text;
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.send,
+                    color: AppColors.primaryColor,
+                  ),
+                ),
               ])
             ],
           ),
