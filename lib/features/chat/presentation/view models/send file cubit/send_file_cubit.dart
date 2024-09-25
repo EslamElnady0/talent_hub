@@ -70,4 +70,11 @@ class SendFileCubit extends Cubit<SendFileState> {
     filePath = null;
     videoThumbnail = null;
   }
+
+  dismissPickedFile() {
+    filePath = null;
+    videoThumbnail = null;
+    fileType = MessageType.text;
+    emit(SendFileInitial());
+  }
 }

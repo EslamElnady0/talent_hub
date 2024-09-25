@@ -32,10 +32,10 @@ class CustomChatTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.r),
           borderSide: const BorderSide(color: AppColors.primaryColor, width: 2),
         ),
-        // suffixIcon: IconButton(
-        //   icon: const Icon(Icons.send, color: AppColors.primaryColor),
-        //   onPressed: () {},
-        // ),
+        suffixIcon: IconButton(
+          icon: const Icon(Icons.attach_file, color: AppColors.white),
+          onPressed: () {},
+        ),
       ),
     );
   }
