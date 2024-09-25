@@ -1,13 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talent_hub/core/DI/dependency_injection.dart';
 import 'package:talent_hub/core/helpers/spacing.dart';
+import 'package:talent_hub/features/chat/data/models/message_model.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20file%20cubit/send_file_cubit.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20record%20cubit/send_record_cubit.dart';
+import 'package:talent_hub/features/chat/presentation/view%20models/send%20text%20cubit/send_text_cubit.dart';
 import 'package:talent_hub/features/chat/presentation/views/widgets/chat_send_record_or_text_button.dart';
 import 'package:talent_hub/features/chat/presentation/views/widgets/picked_file_widget.dart';
 import 'package:talent_hub/features/chat/presentation/views/widgets/recording_message_body.dart';
+import 'package:talent_hub/main.dart';
+import 'package:uuid/uuid.dart';
 import 'chat_message_item.dart';
 import 'choose_file_type_body.dart';
 import 'custom_chat_text_field.dart';
@@ -111,6 +117,20 @@ class _ChatDetailsViewBodyState extends State<ChatDetailsViewBody> {
                         onTap: () {
                           if (chatController.text.isEmpty) {
                             context.read<SendRecordCubit>().startRecording();
+                          } else {
+                            MessageModel textMessage = MessageModel(
+                              senderId:
+                                  getIt.get<FirebaseAuth>().currentUser!.uid,
+                              receiverId: receiver,
+                              textMessageId: const Uuid().v1(),
+                              message: chatController.text,
+                              messageType: MessageType.text,
+                              createdAt: DateTime.now(),
+                            );
+                            context.read<SendTextCubit>().sendTextMessage(
+                                message: textMessage,
+                                receivingUserId: receiver);
+                            chatController.clear();
                           }
                         })
                   ],
