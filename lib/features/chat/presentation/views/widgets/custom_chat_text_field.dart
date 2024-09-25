@@ -34,10 +34,26 @@ class CustomChatTextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.r),
           borderSide: const BorderSide(color: AppColors.primaryColor, width: 2),
         ),
-        suffixIcon: IconButton(
-          icon: const Icon(Icons.attach_file, color: AppColors.white),
-          onPressed: () {
-            context.read<SendFileCubit>().chooseFileType();
+        suffixIcon: BlocBuilder<SendFileCubit, SendFileState>(
+          builder: (context, state) {
+            if (state is SendFileLoading) {
+              return Padding(
+                padding: EdgeInsets.all(12.r),
+                child: SizedBox(
+                  height: 20.h,
+                  width: 20.w,
+                  child: const CircularProgressIndicator(
+                    color: AppColors.white,
+                  ),
+                ),
+              );
+            }
+            return IconButton(
+              icon: const Icon(Icons.attach_file, color: AppColors.white),
+              onPressed: () {
+                context.read<SendFileCubit>().chooseFileType();
+              },
+            );
           },
         ),
       ),
