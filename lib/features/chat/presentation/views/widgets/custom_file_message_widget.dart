@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -41,13 +42,13 @@ class _CustomFileMessageWidgetState extends State<CustomFileMessageWidget> {
             if (await isDownloaded(fileName)) {
               Directory appDocDir = await getApplicationDocumentsDirectory();
               String filePath = '${appDocDir.path}/$fileName';
-              print(filePath);
+              log(filePath);
               await Permission.storage.request();
               await Permission.manageExternalStorage.request();
               final result = await OpenFile.open(filePath);
               if (result.type != ResultType.done) {
                 // Handle the error here
-                print('Error opening file: ${result.message}');
+                log('Error opening file: ${result.message}');
               }
             } else {
               await downloadFile(widget.fileUrl, fileName, () {
@@ -55,7 +56,7 @@ class _CustomFileMessageWidgetState extends State<CustomFileMessageWidget> {
               });
             }
           } catch (e) {
-            print('Error: $e');
+            log('Error: $e');
           }
         },
         child: Row(
@@ -106,11 +107,11 @@ Future<void> downloadFile(
     // Download the file and write it to the local file
     File downloadToFile = File(filePath);
     await storageRef.writeToFile(downloadToFile);
-    print('File downloaded to $filePath');
-    print('File size: ${downloadToFile.lengthSync()}');
+    log('File downloaded to $filePath');
+    log('File size: ${downloadToFile.lengthSync()}');
 
     function();
   } catch (e) {
-    print('Error downloading file: $e');
+    log('Error downloading file: $e');
   }
 }
