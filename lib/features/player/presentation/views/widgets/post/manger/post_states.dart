@@ -9,8 +9,7 @@ class CreatePostSuccessState extends PostState {}
 class CreatePostErrorState extends PostState {
   final String message;
 
-  CreatePostErrorState(this.message);
-}
+  CreatePostErrorState(this.message);}
 
 class GetPostsLoadingState extends PostState {}
 

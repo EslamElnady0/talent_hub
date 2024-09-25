@@ -67,5 +67,4 @@ class PostsCubit extends Cubit<PostState> {
     }).catchError((error) {
       emit(LikePostErrorState(error.toString()));
     });
-  }
-}
+  }}
