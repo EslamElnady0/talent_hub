@@ -6,8 +6,8 @@ import 'package:talent_hub/core/DI/dependency_injection.dart';
 import 'package:talent_hub/firebase_options.dart';
 import 'package:talent_hub/talent_hub_app.dart';
 
-String receiver = "zyB9nUSMIeZhb8dYuCyQEdENR973";
 String sender = "PxoVl7tbEeVzqD2ypQfRVrPvNID3";
+String receiver = "zyB9nUSMIeZhb8dYuCyQEdENR973";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();

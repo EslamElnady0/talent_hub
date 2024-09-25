@@ -26,12 +26,24 @@ class SendMessageRepo {
           .set(message.toMap());
       await firestore
           .collection("users")
+          .doc(auth.currentUser!.uid)
+          .collection("chats")
+          .doc(receivingUserId)
+          .set({"field": "value"});
+      await firestore
+          .collection("users")
           .doc(receivingUserId)
           .collection("chats")
           .doc(auth.currentUser!.uid)
           .collection("messages")
           .doc(message.textMessageId)
           .set(message.toMap());
+      await firestore
+          .collection("users")
+          .doc(receivingUserId)
+          .collection("chats")
+          .doc(auth.currentUser!.uid)
+          .set({"field": "value"});
       return true;
     } catch (e) {
       log("error in sending message $e");
