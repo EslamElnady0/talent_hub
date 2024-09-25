@@ -3,8 +3,6 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:talent_hub/core/models/user_model.dart';
-
 import '../models/message_model.dart';
 
 class GetMessagesRepo {
@@ -13,15 +11,14 @@ class GetMessagesRepo {
 
   GetMessagesRepo({required this.firestore, required this.auth});
 
-  Stream<List<MessageModel>?> getAllMessagesForCommercialMidiation(
-      {required UserModel receivingUser,
-      required VoidCallback scrollToBottom}) {
+  Stream<List<MessageModel>?> getAllMessages(
+      {required String receivingUserId, required VoidCallback scrollToBottom}) {
     try {
       return firestore
           .collection('users')
           .doc(auth.currentUser!.uid)
           .collection('chats')
-          .doc(receivingUser.id)
+          .doc(receivingUserId)
           .collection('messages')
           .orderBy('createdAt')
           .snapshots()

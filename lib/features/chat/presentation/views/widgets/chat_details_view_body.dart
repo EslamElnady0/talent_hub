@@ -9,6 +9,7 @@ import 'package:talent_hub/features/chat/data/models/message_model.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20file%20cubit/send_file_cubit.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20record%20cubit/send_record_cubit.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20text%20cubit/send_text_cubit.dart';
+import 'package:talent_hub/features/chat/presentation/views/widgets/chat_details_chat_list_view.dart';
 import 'package:talent_hub/features/chat/presentation/views/widgets/chat_send_record_or_text_button.dart';
 import 'package:talent_hub/features/chat/presentation/views/widgets/picked_file_widget.dart';
 import 'package:talent_hub/features/chat/presentation/views/widgets/recording_message_body.dart';
@@ -44,11 +45,8 @@ class _ChatDetailsViewBodyState extends State<ChatDetailsViewBody> {
       padding: EdgeInsets.symmetric(horizontal: 5.w),
       child: Column(
         children: [
-          Expanded(
-            child: ListView(
-              children: const [],
-            ),
-          ),
+          vGap(5),
+          const ChatDetailsChatListView(),
           vGap(5),
           BlocBuilder<SendFileCubit, SendFileState>(builder: (context, state) {
             if (state is SendFileChooseFileType) {
