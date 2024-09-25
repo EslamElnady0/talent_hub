@@ -3,7 +3,6 @@ import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:talent_hub/core/helpers/app_assets.dart';
 import 'package:talent_hub/core/helpers/upload_file_to_firebase_storage.dart';
 import 'package:talent_hub/features/auth/data/repo/auth_repo.dart';
 import 'package:talent_hub/features/auth/presentation/manger/signup_cubit/signup_states.dart';
@@ -46,9 +45,8 @@ class SignupCubit extends Cubit<SignupStates> {
     String? imageUrl;
     if (imageFile != null) {
       imageUrl = await uploadImage(imageFile!);
-      if (imageUrl == null) return;
     } else {
-      imageUrl = AppAssets.player;
+      imageUrl = null;
     }
     var result = await _authRepo.signUp(
       emailController.text,
