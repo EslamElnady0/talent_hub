@@ -24,6 +24,7 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(
+        errorMaxLines: 3,
         border: const OutlineInputBorder(borderSide: BorderSide.none),
         filled: true,
         fillColor: AppColors.smoke,
