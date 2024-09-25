@@ -36,17 +36,20 @@ class ProfileInfo extends StatelessWidget {
                       color: AppColors.primaryColor,
                       size: 19,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      PlayerCubit.get(context)
+                          .selectUploadAndSaveImage(userModel.uId);
+                    },
                   ),
                 ),
               ],
             ),
             vGap(15),
-             Text(
+            Text(
               userModel.name,
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-             Text(userModel.email, style: const TextStyle(fontSize: 20)),
+            Text(userModel.email, style: const TextStyle(fontSize: 20)),
           ],
         );
       },
