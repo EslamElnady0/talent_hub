@@ -14,53 +14,10 @@ import 'package:talent_hub/features/chat/presentation/views/widgets/picked_file_
 import 'package:talent_hub/features/chat/presentation/views/widgets/recording_message_body.dart';
 import 'package:talent_hub/main.dart';
 import 'package:uuid/uuid.dart';
-import 'chat_message_item.dart';
 import 'choose_file_type_body.dart';
 import 'custom_chat_text_field.dart';
 
 class ChatDetailsViewBody extends StatefulWidget {
-  static List<Widget> dummyMessages = [
-    vGap(12),
-    const ChatMessageItem(
-      message: "dasdasdasdasddasasdasdasdasdasdasd;ldksd",
-      isSender: false,
-    ),
-    vGap(5),
-    const ChatMessageItem(
-      message: "dasdasdasdasddasasdasdasdasdasdasd;ldksd",
-      isSender: true,
-    ),
-    vGap(5),
-    const ChatMessageItem(
-      message: "dasdasdasdasddasasdasdasdasdasdasd;ldksd",
-      isSender: true,
-    ),
-    vGap(5),
-    const ChatMessageItem(
-      message: "dasdasdasdasddasasdasdasdasdasdasd;ldksd",
-      isSender: false,
-    ),
-    vGap(5),
-    const ChatMessageItem(
-      message: "dasdasdasdasddasasdasdasdasdasdasd;ldksd",
-      isSender: true,
-    ),
-    vGap(5),
-    const ChatMessageItem(
-      message: "dasdasdasdasddasasdasdasdasdasdasd;ldksd",
-      isSender: false,
-    ),
-    vGap(5),
-    const ChatMessageItem(
-      message: "dasdasdasdasddasasdasdasdasdasdasd;ldksd",
-      isSender: false,
-    ),
-    vGap(5),
-    const ChatMessageItem(
-      message: "dasdasdasdasddasasdasdasdasdasdasd;ldksd",
-      isSender: false,
-    ),
-  ];
   const ChatDetailsViewBody({super.key});
 
   @override
@@ -89,7 +46,7 @@ class _ChatDetailsViewBodyState extends State<ChatDetailsViewBody> {
         children: [
           Expanded(
             child: ListView(
-              children: ChatDetailsViewBody.dummyMessages,
+              children: const [],
             ),
           ),
           vGap(5),
