@@ -8,6 +8,7 @@ class PostModel {
   String text;
   Timestamp date;
   String postId;
+  List likes;
 
   PostModel({
     required this.uId,
@@ -16,6 +17,7 @@ class PostModel {
     required this.videoUrl,
     required this.text,
     required this.date,
+    required this.likes,
     this.imageUrl,
   });
 
@@ -28,6 +30,7 @@ class PostModel {
       text: json['description'] as String,
       date: json['createdAt'] as Timestamp,
       imageUrl: json['imageUrl'] as String?,
+      likes: json['likes'] as List,
     );
   }
 
@@ -40,6 +43,7 @@ class PostModel {
       'description': text,
       'createdAt': date,
       'imageUrl': imageUrl,
+      'likes': likes,
     };
   }
 }

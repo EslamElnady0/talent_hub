@@ -19,7 +19,7 @@ class ScoutView extends StatelessWidget {
           return Scaffold(
             drawer: CustomScoutDrawer(userModel: state.userModel),
             appBar: customScoutAppBar(context, state.userModel),
-            body: const BlocBuilderPost(),
+            body: BlocBuilderPost(userModel: state.userModel),
           );
         } else if (state is FailureScoutState) {
           return CustomErrorWidget(errorMassage: state.error);
