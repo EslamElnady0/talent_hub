@@ -28,18 +28,23 @@ class CommentPostSection extends StatelessWidget {
             child: LinearProgressIndicator(color: AppColors.primaryColor),
           );
         }
-        return ListView(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          children: snapshot.data!.docs.map((doc) {
-            final commentData = doc.data() as Map<String, dynamic>;
-            return CommentSectionUi(
-              text: commentData['commentText'],
-              user: commentData['commentedBy'],
-              time: DateFormat('EEEE, h:mm a')
-                  .format(commentData['commentTime'].toDate()),
-            );
-          }).toList(),
+        return Column(
+          children: [
+            if (snapshot.data!.docs.isNotEmpty) const Divider(endIndent: 10, indent: 10),
+            ListView(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              children: snapshot.data!.docs.map((doc) {
+                final commentData = doc.data() as Map<String, dynamic>;
+                return CommentSectionUi(
+                  text: commentData['commentText'],
+                  user: commentData['commentedBy'],
+                  time: DateFormat('EEEE, h:mm a')
+                      .format(commentData['commentTime'].toDate()),
+                );
+              }).toList(),
+            ),
+          ],
         );
       },
     );

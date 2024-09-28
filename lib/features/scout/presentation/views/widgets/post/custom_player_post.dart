@@ -39,8 +39,10 @@ class CustomPlayerPost extends StatelessWidget {
             VideoPostSection(postModel: postModel),
             vGap(15),
             TailPostSection(
-                postModel: postModel, index: index, userModel: userModel),
-            const Divider(endIndent: 10, indent: 10),
+              postModel: postModel,
+              index: index,
+              userModel: userModel,
+            ),
             CommentPostSection(postModel: postModel)
           ],
         ),

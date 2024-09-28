@@ -110,9 +110,8 @@ class PostCubit extends Cubit<PostStates> {
   }
 
   void toggleLike({required PostModel postModel}) {
-    emit(LikePostSuccessPostState());
     isLiked = !isLiked;
-
+    emit(LikePostSuccessPostState());
     DocumentReference documentReference =
         FirebaseFirestore.instance.collection("posts").doc(postModel.postId);
     if (isLiked) {
