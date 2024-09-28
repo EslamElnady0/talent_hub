@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:talent_hub/core/helpers/spacing.dart';
+import 'package:talent_hub/core/models/post_model.dart';
 import 'package:talent_hub/features/scout/presentation/views/widgets/post/custom_player_post.dart';
 
 class ScoutViewBody extends StatelessWidget {
-  const ScoutViewBody({super.key});
-
+  const ScoutViewBody({super.key, required this.posts});
+  final List<PostModel> posts;
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.all(10),
-      itemBuilder: (context, index) => const CustomPlayerPost(),
+      itemBuilder: (context, index) {
+        return CustomPlayerPost(postModel: posts[index],index: index,);
+      },
       separatorBuilder: (context, index) => vGap(10),
-      itemCount: 10,
+      itemCount: posts.length,
     );
   }
 }

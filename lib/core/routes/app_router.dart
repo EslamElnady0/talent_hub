@@ -7,6 +7,7 @@ import 'package:talent_hub/features/auth/presentation/views/forgot_pass_view/for
 import 'package:talent_hub/features/auth/presentation/views/login_view/login_view.dart';
 import 'package:talent_hub/features/auth/presentation/views/register_view/register_view.dart';
 import 'package:talent_hub/features/player/presentation/views/player_view.dart';
+
 import 'package:talent_hub/features/player/presentation/views/widgets/post/create_post_view.dart';
 import 'package:talent_hub/features/scout/presentation/views/scout_view.dart';
 
@@ -47,7 +48,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => const PlayerView());
 
       case playerProfile:
-        return MaterialPageRoute(builder: (context) => const PlayerProfileView());
+        return MaterialPageRoute(
+            builder: (context) => const PlayerProfileView());
 
       case post:
         return MaterialPageRoute(builder: (context) => const CreatePostView());

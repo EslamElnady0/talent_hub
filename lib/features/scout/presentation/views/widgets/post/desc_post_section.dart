@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:talent_hub/core/models/post_model.dart';
 
 class DescPostSection extends StatelessWidget {
-  const DescPostSection({
-    super.key,
-  });
-
+  const DescPostSection({super.key, required this.postModel});
+  final PostModel postModel;
   @override
   Widget build(BuildContext context) {
-    return const Text(
-      "Cristiano Ronaldo dos Santos Aveiro GOIH ComM (Portuguese pronunciation: [kɾiʃˈtjɐnu ʁɔˈnaldu]; born 5 February 1985) is a Portuguese professional footballer who plays as a forward for and captains both Saudi Pro League club Al Nassr and the Portugal national team. Widely regarded as one of the greatest players of all time, Ronaldo has won five.",
-      overflow: TextOverflow.ellipsis,
-      maxLines: 4,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Text(
+          postModel.text,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 4,
+        ),
+      ),
     );
   }
 }

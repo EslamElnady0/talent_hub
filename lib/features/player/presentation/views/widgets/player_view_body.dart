@@ -12,14 +12,14 @@ class PlayerViewBody extends StatelessWidget {
       child: Column(
         children: [
           addPostSection(context),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.all(10),
-            itemBuilder: (context, index) => const CustomPlayerPost(),
-            separatorBuilder: (context, index) => vGap(10),
-            itemCount: 10,
-          ),
+          // ListView.separated(
+          //   shrinkWrap: true,
+          //   physics: const NeverScrollableScrollPhysics(),
+          //   padding: const EdgeInsets.all(10),
+          //   itemBuilder: (context, index) => const CustomPlayerPost(),
+          //   separatorBuilder: (context, index) => vGap(10),
+          //   itemCount: 10,
+          // ),
         ],
       ),
     );
