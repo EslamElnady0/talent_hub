@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:talent_hub/core/helpers/spacing.dart';
 import 'package:talent_hub/core/models/post_model.dart';
 
 class HeadPostSection extends StatelessWidget {
   const HeadPostSection({super.key, required this.postModel});
   final PostModel postModel;
+
   @override
   Widget build(BuildContext context) {
+    String formattedDateTime =
+        DateFormat('d MMM, h:mm a').format(postModel.date.toDate());
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Row(
@@ -16,7 +20,7 @@ class HeadPostSection extends StatelessWidget {
             backgroundImage: NetworkImage(postModel.imageUrl!),
           ),
           hGap(10),
-           Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -27,7 +31,7 @@ class HeadPostSection extends StatelessWidget {
                 ),
               ),
               Text(
-                postModel.date,
+                formattedDateTime,
                 style: const TextStyle(
                   color: Colors.grey,
                   height: 1.3,

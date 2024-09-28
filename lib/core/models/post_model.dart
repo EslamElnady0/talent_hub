@@ -1,10 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class PostModel {
   String uId;
   String name;
   String? imageUrl;
   String videoUrl;
   String text;
-  String date;
+  Timestamp date;
   String postId;
 
   PostModel({
@@ -24,7 +26,7 @@ class PostModel {
       name: json['name'] as String,
       videoUrl: json['videoUrl'] as String,
       text: json['description'] as String,
-      date: json['createdAt'] as String,
+      date: json['createdAt'] as Timestamp,
       imageUrl: json['imageUrl'] as String?,
     );
   }
