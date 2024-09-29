@@ -13,18 +13,13 @@ class PostCubit extends Cubit<PostStates> {
   static PostCubit get(context) => BlocProvider.of(context);
 
   List<PostModel> posts = [];
-  List<String> postsId = [];
-  List<int> likes = [];
   bool isLiked = false;
   final currentUser = FirebaseAuth.instance.currentUser;
+  TextEditingController commentController = TextEditingController();
 
   void getPosts() async {
     FirebaseFirestore.instance.collection('posts').get().then((value) {
       for (var element in value.docs) {
-        element.reference.collection("likes").get().then((value) {
-          likes.add(value.docs.length);
-        }).catchError((error) {});
-        postsId.add(element.id);
         posts.add(PostModel.fromJson(element.data()));
       }
       emit(SuccessPostState());
@@ -32,23 +27,6 @@ class PostCubit extends Cubit<PostStates> {
       emit(FailurePostState(error: error.message));
     });
   }
-
-  void likePost({required String postId}) {
-    FirebaseFirestore.instance
-        .collection('posts')
-        .doc(postId)
-        .collection('likes')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .set({
-      "like": true,
-    }).then((value) {
-      emit(LikePostSuccessPostState());
-    }).catchError((error) {
-      emit(LikePostFailurePostState(error: error.message));
-    });
-  }
-
-  TextEditingController commentController = TextEditingController();
 
   void addComment({
     required String commentText,

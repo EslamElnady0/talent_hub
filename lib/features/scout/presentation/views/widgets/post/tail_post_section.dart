@@ -42,25 +42,12 @@ class _TailPostSectionState extends State<TailPostSection> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           LikeButton(
-            onTap: () => postCubit.toggleLike,
+            onTap: () {
+              postCubit.toggleLike(postModel: widget.postModel);
+            },
             text: widget.postModel.likes.length.toString(),
             isLiked: postCubit.isLiked,
           ),
-          // CustomTailButton(
-          //   onTap: () {
-          //     postCubit.likePost(postId: postCubit.postsId[index]);
-          //   },
-          //   icon: postCubit.likes.isNotEmpty
-          //       ? FontAwesomeIcons.solidHeart
-          //       : FontAwesomeIcons.heart,
-          //   iconColor: AppColors.primaryColor,
-          //   color: postCubit.likes.isNotEmpty
-          //       ? AppColors.primaryColor
-          //       : Colors.black,
-          //   text: postCubit.likes.isNotEmpty
-          //       ? "${postCubit.likes[index]} Likes"
-          //       : "Like",
-          // ),
           CustomTailButton(
             onTap: () {
               postCubit.showCommentDialog(
