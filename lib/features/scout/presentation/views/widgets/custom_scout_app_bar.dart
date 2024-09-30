@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:talent_hub/core/helpers/app_assets.dart';
 import 'package:talent_hub/core/helpers/extensions.dart';
 import 'package:talent_hub/core/helpers/spacing.dart';
 import 'package:talent_hub/core/models/user_model.dart';
@@ -20,7 +22,11 @@ AppBar customScoutAppBar(BuildContext context, UserModel userModel) {
           children: [
             CircleAvatar(
               radius: 25,
-              backgroundImage: NetworkImage(userModel.imageUrl!),
+              backgroundImage: userModel.imageUrl == null
+                  ? AssetImage(AppAssets.player)
+                  : CachedNetworkImageProvider(
+                      userModel.imageUrl ?? "",
+                    ),
             ),
             const Padding(
               padding: EdgeInsetsDirectional.only(

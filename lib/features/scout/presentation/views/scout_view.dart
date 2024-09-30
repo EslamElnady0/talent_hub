@@ -8,25 +8,35 @@ import 'package:talent_hub/features/scout/presentation/views/widgets/custom_scou
 import 'package:talent_hub/features/scout/presentation/views/widgets/custom_scout_drawer.dart';
 import 'package:talent_hub/features/scout/presentation/views/widgets/post/bloc_builder_post.dart';
 
+import '../manger/post_cubit/post_cubit.dart';
+
 class ScoutView extends StatelessWidget {
   const ScoutView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ScoutCubit, ScoutStates>(
-      builder: (context, state) {
-        if (state is SuccessScoutState) {
-          return Scaffold(
-            drawer: CustomScoutDrawer(userModel: state.userModel),
-            appBar: customScoutAppBar(context, state.userModel),
-            body: BlocBuilderPost(userModel: state.userModel),
-          );
-        } else if (state is FailureScoutState) {
-          return CustomErrorWidget(errorMassage: state.error);
-        } else {
-          return const CustomCircularLoadingIndicator();
-        }
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ScoutCubit()..getScout()),
+        BlocProvider(create: (context) => PostCubit()..getPosts()),
+      ],
+      child: Builder(builder: (context) {
+        return BlocBuilder<ScoutCubit, ScoutStates>(
+          builder: (context, state) {
+            if (state is SuccessScoutState) {
+              return Scaffold(
+                drawer: CustomScoutDrawer(userModel: state.userModel),
+                appBar: customScoutAppBar(context, state.userModel),
+                body: BlocBuilderPost(userModel: state.userModel),
+              );
+            } else if (state is FailureScoutState) {
+              return CustomErrorWidget(errorMassage: state.error);
+            } else {
+              return const CustomCircularLoadingIndicator();
+            }
+          },
+        );
+      }),
     );
   }
 }

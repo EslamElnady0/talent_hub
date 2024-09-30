@@ -10,7 +10,7 @@ class HeadPostSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String formattedDateTime =
-        DateFormat('d MMM, h:mm a').format(postModel.date.toDate());
+        DateFormat('d MMM, h:mm a').format(postModel.createdAt.toDate());
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Row(

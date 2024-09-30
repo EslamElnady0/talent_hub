@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:talent_hub/core/models/post_model.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../../../../../core/theme/app_colors.dart';
+
 class VideoPostSection extends StatefulWidget {
   const VideoPostSection({super.key, required this.postModel});
   final PostModel postModel;
@@ -16,8 +18,8 @@ class _VideoPostSectionState extends State<VideoPostSection> {
   late VideoPlayerController controller;
   bool isPlay = false;
   Future<void> initializeVideoPlayer() async {
-    controller = VideoPlayerController.networkUrl(
-      Uri.parse(widget.postModel.videoUrl),
+    controller = VideoPlayerController.network(
+      widget.postModel.videoUrl,
     );
     await controller.initialize();
     setState(() {});
@@ -63,8 +65,9 @@ class _VideoPostSectionState extends State<VideoPostSection> {
             ),
           ),
           Icon(
-            isPlay ? Icons.play_arrow : Icons.pause,
+            !isPlay ? Icons.play_arrow : Icons.pause,
             size: 30,
+            color: AppColors.white,
           )
         ],
       ),

@@ -8,23 +8,25 @@ import 'package:talent_hub/core/models/user_model.dart';
 import 'package:talent_hub/core/theme/app_colors.dart';
 import 'package:talent_hub/features/scout/presentation/manger/post_cubit/post_states.dart';
 
+import '../../../data/repos/scout_repo_impl.dart';
+
 class PostCubit extends Cubit<PostStates> {
   PostCubit() : super(InitialPostState());
   static PostCubit get(context) => BlocProvider.of(context);
-
+  final ScoutRepoImpl _scoutRepo = ScoutRepoImpl();
   List<PostModel> posts = [];
   bool isLiked = false;
   final currentUser = FirebaseAuth.instance.currentUser;
   TextEditingController commentController = TextEditingController();
 
-  void getPosts() async {
-    FirebaseFirestore.instance.collection('posts').get().then((value) {
-      for (var element in value.docs) {
-        posts.add(PostModel.fromJson(element.data()));
-      }
+  Future<void> getPosts() async {
+    emit(LoadingPostState());
+    var result = await _scoutRepo.fetchPosts();
+    result.fold((failure) {
+      emit(FailurePostState(error: failure.message));
+    }, (postsList) {
+      posts = postsList;
       emit(SuccessPostState());
-    }).catchError((error) {
-      emit(FailurePostState(error: error.message));
     });
   }
 
@@ -89,7 +91,7 @@ class PostCubit extends Cubit<PostStates> {
 
   void toggleLike({required PostModel postModel}) {
     isLiked = !isLiked;
-    emit(LikePostSuccessPostState());
+
     DocumentReference documentReference =
         FirebaseFirestore.instance.collection("posts").doc(postModel.postId);
     if (isLiked) {
@@ -101,5 +103,6 @@ class PostCubit extends Cubit<PostStates> {
         "likes": FieldValue.arrayRemove([currentUser!.email]),
       });
     }
+    emit(SuccessPostState());
   }
 }

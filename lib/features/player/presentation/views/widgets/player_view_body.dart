@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/helpers/spacing.dart';
-import '../../../../scout/presentation/views/widgets/post/custom_player_post.dart';
 import 'add_post_section.dart';
+
 class PlayerViewBody extends StatelessWidget {
   const PlayerViewBody({super.key});
 
