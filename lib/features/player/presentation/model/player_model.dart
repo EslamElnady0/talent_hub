@@ -1,4 +1,4 @@
-class Player {
+class PlayerModel {
   String uId;
   String name;
   String position;
@@ -7,7 +7,7 @@ class Player {
   String image;
   String phone;
 
-  Player({
+  PlayerModel({
     required this.uId,
     required this.name,
     required this.position,
@@ -17,8 +17,8 @@ class Player {
     required this.phone,
   });
 
-  factory Player.fromMap(Map<String, dynamic> map) {
-    return Player(
+  factory PlayerModel.fromMap(Map<String, dynamic> map) {
+    return PlayerModel(
       uId: map['uId'],
       name: map['name'],
       position: map['position'],

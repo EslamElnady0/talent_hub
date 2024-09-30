@@ -11,7 +11,7 @@ class PostsCubit extends Cubit<PostState> {
   PostsCubit() : super(CreatePostInitialState());
 
   static PostsCubit get(context) => BlocProvider.of(context);
-  late Player playerModel;
+  late PlayerModel playerModel;
 
   void createPost({
     required String description,
@@ -21,7 +21,8 @@ class PostsCubit extends Cubit<PostState> {
 
     try {
       String videoFileName = DateTime.now().millisecondsSinceEpoch.toString();
-      final storageRef = FirebaseStorage.instance.ref().child('posts/$videoFileName');
+      final storageRef =
+          FirebaseStorage.instance.ref().child('posts/$videoFileName');
 
       UploadTask uploadTask = storageRef.putFile(videoFile);
       TaskSnapshot storageSnapshot = await uploadTask;
@@ -46,22 +47,20 @@ class PostsCubit extends Cubit<PostState> {
       emit(CreatePostErrorState(error.toString()));
     }
   }
+
   List<Post> postsList = [];
-  void getPosts()
-  {
+  void getPosts() {
     emit(GetPostsLoadingState());
     FirebaseFirestore.instance
         .collection('posts')
         .orderBy('createdAt', descending: true)
         .get()
-        .then((value)
-    {
+        .then((value) {
       for (var element in value.docs) {
         postsList.add(Post.fromMap(element.data()));
       }
       emit(GetPostsSuccessState());
-    })
-        .catchError((error){
+    }).catchError((error) {
       emit(GetPostsErrorState(error.toString()));
     });
   }

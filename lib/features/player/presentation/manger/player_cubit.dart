@@ -12,13 +12,17 @@ class PlayerCubit extends Cubit<PlayerState> {
 
   static PlayerCubit get(context) => BlocProvider.of(context);
 
- late Player playerModel;
+  late PlayerModel playerModel;
 
   void getUserData() {
     emit(GetInfoPlayerLoadingState());
 
-    FirebaseFirestore.instance.collection('users').doc(playerModel.uId).get().then((value) {
-      playerModel = Player.fromMap(value.data() as Map<String, dynamic>);
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(playerModel.uId)
+        .get()
+        .then((value) {
+      playerModel = PlayerModel.fromMap(value.data() as Map<String, dynamic>);
       emit(GetInfoPlayerSuccessState());
     }).catchError((error) {
       emit(GetInfoPlayerErrorState(error.toString()));
@@ -28,31 +32,35 @@ class PlayerCubit extends Cubit<PlayerState> {
   Future<void> selectUploadAndSaveImage(String playerId) async {
     try {
       final ImagePicker picker = ImagePicker();
-      final XFile? imageFile = await picker.pickImage(source: ImageSource.gallery);
+      final XFile? imageFile =
+          await picker.pickImage(source: ImageSource.gallery);
 
       if (imageFile == null) {
         return;
       }
 
-
       File file = File(imageFile.path);
 
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
-      final storageRef = FirebaseStorage.instance.ref().child('player_images/$fileName');
+      final storageRef =
+          FirebaseStorage.instance.ref().child('player_images/$fileName');
 
       UploadTask uploadTask = storageRef.putFile(file);
       TaskSnapshot storageSnapshot = await uploadTask;
 
       String downloadUrl = await storageSnapshot.ref.getDownloadURL();
 
-      await FirebaseFirestore.instance.collection('users').doc(playerId).update({
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(playerId)
+          .update({
         'image': downloadUrl,
       });
 
       print('Image uploaded and URL saved successfully!');
-
     } catch (e) {
-      print('Error during image upload or saving to Firestore: ${e.toString()}');
+      print(
+          'Error during image upload or saving to Firestore: ${e.toString()}');
     }
   }
 }
