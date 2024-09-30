@@ -6,7 +6,8 @@ import '../../../../../core/theme/app_colors.dart';
 import 'user_image_circle_avatar.dart';
 
 class ChatDetailsAppBarLeading extends StatelessWidget {
-  const ChatDetailsAppBarLeading({super.key});
+  final String? image;
+  const ChatDetailsAppBarLeading({super.key, required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class ChatDetailsAppBarLeading extends StatelessWidget {
         children: [
           const Icon(Icons.arrow_back, color: AppColors.white),
           UserImageCircleAvatar(
-            image: "assets/images/default_user.png",
+            image: image,
             radius: 15.r,
           )
         ],

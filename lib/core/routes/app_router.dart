@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talent_hub/core/models/user_model.dart';
 
 import 'package:talent_hub/features/chat/presentation/views/chat_details_view.dart';
 import 'package:talent_hub/features/chat/presentation/views/chat_inbox_view.dart';
@@ -58,7 +59,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => const SplashView());
 
       case chatDetails:
-        return MaterialPageRoute(builder: (context) => const ChatDetailsView());
+        var args = settings.arguments as UserModel;
+        return MaterialPageRoute(
+            builder: (context) => const ChatDetailsView(),
+            settings: RouteSettings(arguments: args));
 
       case chatInbox:
         return MaterialPageRoute(builder: (context) => const ChatInboxView());
