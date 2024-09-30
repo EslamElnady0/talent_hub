@@ -25,7 +25,7 @@ Widget addPostSection(BuildContext context) {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 15),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.grey.shade300),
         ),
         child: const Text(
