@@ -9,6 +9,7 @@ import 'package:talent_hub/core/helpers/show_toast.dart';
 import 'package:talent_hub/core/theme/app_colors.dart';
 import 'package:talent_hub/features/player/presentation/views/widgets/post/manger/post_cubit.dart';
 import 'package:talent_hub/features/player/presentation/views/widgets/post/manger/post_states.dart';
+import 'package:talent_hub/features/scout/presentation/manger/post_cubit/post_states.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../../../../core/models/user_model.dart';
@@ -95,15 +96,16 @@ class CreatePostViewState extends State<CreatePostView> {
                   padding: const EdgeInsets.all(16.0),
                   child: BlocListener<PostsCubit, PostsState>(
                       listener: (context, state) {
-                        if (state is CreatePostSuccessState) {
-                          context.read<PostCubit>().getPosts();
-                          context.pop();
-                          showToast(
-                              toastMsg: "Post Created Successfully",
-                              state: ToastStates.success);
-                        }
-                      },
-                      child: SingleChildScrollView(
+                    if (state is CreatePostSuccessState) {
+                      context.read<PostCubit>().getPosts();
+                      context.pop();
+                      showToast(
+                          toastMsg: "Post Created Successfully",
+                          state: ToastStates.success);
+                    }
+                  }, child: BlocBuilder<PostCubit, PostStates>(
+                    builder: (context, state) {
+                      return SingleChildScrollView(
                         child: isLoading
                             ? const Center(
                                 child: CircularProgressIndicator(
@@ -186,6 +188,7 @@ class CreatePostViewState extends State<CreatePostView> {
                                           await context
                                               .read<PostsCubit>()
                                               .createPost(
+                                                  context: context,
                                                   text: descriptionController
                                                       .text,
                                                   userModel: userModel,
@@ -206,7 +209,9 @@ class CreatePostViewState extends State<CreatePostView> {
                                   ),
                                 ],
                               ),
-                      )),
+                      );
+                    },
+                  )),
                 ));
           },
         ));

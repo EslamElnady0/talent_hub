@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talent_hub/core/DI/dependency_injection.dart';
 import 'package:talent_hub/core/models/post_model.dart';
 import 'package:talent_hub/core/models/user_model.dart';
 import 'package:talent_hub/features/player/presentation/views/widgets/post/manger/post_states.dart';
+
+import '../../../../../../scout/presentation/manger/post_cubit/post_cubit.dart';
 
 class PostsCubit extends Cubit<PostsState> {
   PostsCubit() : super(CreatePostInitialState());
@@ -18,6 +21,7 @@ class PostsCubit extends Cubit<PostsState> {
     required String text,
     required File videoFile,
     required UserModel userModel,
+    required BuildContext context,
   }) async {
     emit(CreatePostLoadingState());
 
@@ -45,6 +49,10 @@ class PostsCubit extends Cubit<PostsState> {
       await FirebaseFirestore.instance
           .collection('posts')
           .add(postModel.toJson());
+      if (context.mounted) {
+        context.read<PostCubit>().posts.add(postModel);
+        await context.read<PostCubit>().getPosts();
+      }
       emit(CreatePostSuccessState());
     } catch (error) {
       emit(CreatePostErrorState(error.toString()));
