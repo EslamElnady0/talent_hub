@@ -1,21 +1,23 @@
+import 'dart:developer';
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:talent_hub/features/player/presentation/model/player_model.dart';
+import 'package:talent_hub/core/DI/dependency_injection.dart';
+import 'package:talent_hub/core/models/post_model.dart';
+import 'package:talent_hub/core/models/user_model.dart';
 import 'package:talent_hub/features/player/presentation/views/widgets/post/manger/post_states.dart';
 
-import '../model/posts_model.dart';
-
-class PostsCubit extends Cubit<PostState> {
+class PostsCubit extends Cubit<PostsState> {
   PostsCubit() : super(CreatePostInitialState());
 
   static PostsCubit get(context) => BlocProvider.of(context);
-  late PlayerModel playerModel;
 
-  void createPost({
-    required String description,
+  Future<void> createPost({
+    required String text,
     required File videoFile,
+    required UserModel userModel,
   }) async {
     emit(CreatePostLoadingState());
 
@@ -29,26 +31,27 @@ class PostsCubit extends Cubit<PostState> {
 
       String videoUrl = await storageSnapshot.ref.getDownloadURL();
 
-      Post postModel = Post(
-        uId: playerModel.uId,
-        createdAt: DateTime.now(),
-        description: description,
+      PostModel postModel = PostModel(
+        uId: getIt.get<FirebaseAuth>().currentUser!.uid,
+        name: userModel.name,
         videoUrl: videoUrl,
-        comments: [],
+        text: text,
+        imageUrl: userModel.imageUrl,
+        postId: DateTime.now().millisecondsSinceEpoch.toString(),
+        createdAt: Timestamp.now(),
         likes: [],
       );
 
       await FirebaseFirestore.instance
           .collection('posts')
-          .add(postModel.toMap());
-
+          .add(postModel.toJson());
       emit(CreatePostSuccessState());
     } catch (error) {
       emit(CreatePostErrorState(error.toString()));
     }
   }
 
-  List<Post> postsList = [];
+  List<PostModel> postsList = [];
   void getPosts() {
     emit(GetPostsLoadingState());
     FirebaseFirestore.instance
@@ -57,7 +60,7 @@ class PostsCubit extends Cubit<PostState> {
         .get()
         .then((value) {
       for (var element in value.docs) {
-        postsList.add(Post.fromMap(element.data()));
+        postsList.add(PostModel.fromJson(element.data()));
       }
       emit(GetPostsSuccessState());
     }).catchError((error) {
@@ -65,18 +68,23 @@ class PostsCubit extends Cubit<PostState> {
     });
   }
 
-  void likePost(String postId) {
-    FirebaseFirestore.instance
-        .collection('posts')
-        .doc(postId)
-        .collection('likes')
-        .doc(playerModel.uId)
-        .set({
-      'like': true,
-    }).then((value) {
-      emit(LikePostSuccessState());
-    }).catchError((error) {
-      emit(LikePostErrorState(error.toString()));
-    });
+//   void likePost(String postId) {
+//     FirebaseFirestore.instance
+//         .collection('posts')
+//         .doc(postId)
+//         .collection('likes')
+//         .doc(userModel.id)
+//         .set({
+//       'like': true,
+//     }).then((value) {
+//       emit(LikePostSuccessState());
+//     }).catchError((error) {
+//       emit(LikePostErrorState(error.toString()));
+//     });
+//   }
+  @override
+  void onChange(Change<PostsState> change) {
+    log(change.toString());
+    super.onChange(change);
   }
 }

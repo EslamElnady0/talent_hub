@@ -41,9 +41,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
-  bloc: ^8.1.4
   flutter_screenutil: ^5.9.3
-  flutter_bloc: ^8.1.6
   fluttertoast: ^8.2.8
   font_awesome_flutter: ^10.7.0
   get_it: ^8.0.0

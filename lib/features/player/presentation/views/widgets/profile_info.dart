@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:talent_hub/core/helpers/app_assets.dart';
 import '../../../../../core/helpers/spacing.dart';
 import '../../../../../core/theme/app_colors.dart';
 import '../../manger/player_cubit.dart';
@@ -13,7 +15,7 @@ class ProfileInfo extends StatelessWidget {
     return BlocConsumer<PlayerCubit, PlayerState>(
       listener: (BuildContext context, state) {},
       builder: (BuildContext context, state) {
-        var userModel = PlayerCubit.get(context).playerModel;
+        var userModel = PlayerCubit.get(context).user;
         return Column(
           children: [
             Stack(
@@ -24,7 +26,9 @@ class ProfileInfo extends StatelessWidget {
                   radius: 80,
                   child: CircleAvatar(
                     radius: 78,
-                    backgroundImage: AssetImage(userModel.image),
+                    backgroundImage: userModel.imageUrl == null
+                        ? AssetImage(AppAssets.player)
+                        : CachedNetworkImageProvider(userModel.imageUrl!),
                   ),
                 ),
                 CircleAvatar(
@@ -38,7 +42,7 @@ class ProfileInfo extends StatelessWidget {
                     ),
                     onPressed: () {
                       PlayerCubit.get(context)
-                          .selectUploadAndSaveImage(userModel.uId);
+                          .selectUploadAndSaveImage(userModel.id);
                     },
                   ),
                 ),

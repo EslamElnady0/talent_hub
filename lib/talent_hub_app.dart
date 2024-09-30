@@ -16,7 +16,7 @@ class TalentHubApp extends StatelessWidget {
         title: 'Talent Hub',
         debugShowCheckedModeBanner: false,
         onGenerateRoute: AppRouter.onGenerateRoute,
-        initialRoute: AppRouter.splash,
+        initialRoute: AppRouter.scout,
         theme: ThemeData(
           fontFamily: 'Outfit',
           focusColor: AppColors.black,

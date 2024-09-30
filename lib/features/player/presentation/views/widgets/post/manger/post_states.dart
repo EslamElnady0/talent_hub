@@ -1,28 +1,30 @@
-abstract class PostState {}
+abstract class PostsState {}
 
-class CreatePostInitialState extends PostState {}
+class CreatePostInitialState extends PostsState {}
 
-class CreatePostLoadingState extends PostState {}
+class CreatePostLoadingState extends PostsState {}
 
-class CreatePostSuccessState extends PostState {}
+class CreatePostSuccessState extends PostsState {}
 
-class CreatePostErrorState extends PostState {
+class CreatePostErrorState extends PostsState {
   final String message;
 
-  CreatePostErrorState(this.message);}
+  CreatePostErrorState(this.message);
+}
 
-class GetPostsLoadingState extends PostState {}
+class GetPostsLoadingState extends PostsState {}
 
-class GetPostsSuccessState extends PostState {}
+class GetPostsSuccessState extends PostsState {}
 
-class GetPostsErrorState extends PostState {
+class GetPostsErrorState extends PostsState {
   final String error;
 
   GetPostsErrorState(this.error);
 }
-class LikePostSuccessState extends PostState {}
-class LikePostErrorState extends PostState
-{
+
+class LikePostSuccessState extends PostsState {}
+
+class LikePostErrorState extends PostsState {
   final String error;
   LikePostErrorState(this.error);
 }

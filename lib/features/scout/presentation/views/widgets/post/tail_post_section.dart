@@ -39,7 +39,7 @@ class _TailPostSectionState extends State<TailPostSection> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           LikeButton(
             onTap: () {
@@ -59,11 +59,12 @@ class _TailPostSectionState extends State<TailPostSection> {
             icon: FontAwesomeIcons.comments,
             text: "Comments",
           ),
-          CustomTailButton(
-            onTap: () => context.pushNamed(AppRouter.chatInbox),
-            icon: FontAwesomeIcons.message,
-            text: "Chat",
-          ),
+          if (widget.userModel.role == "scout")
+            CustomTailButton(
+              onTap: () => context.pushNamed(AppRouter.chatInbox),
+              icon: FontAwesomeIcons.message,
+              text: "Chat",
+            )
         ],
       ),
     );
