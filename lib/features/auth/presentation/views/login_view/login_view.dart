@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:talent_hub/core/DI/dependency_injection.dart';
+import 'package:talent_hub/features/auth/data/repo/auth_repo.dart';
+import 'package:talent_hub/features/auth/presentation/manger/login_cubit/login_cubit.dart';
 import 'package:talent_hub/features/auth/presentation/views/login_view/widgets/login_view_body.dart';
 
 class LoginView extends StatelessWidget {
@@ -6,8 +10,11 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: LoginViewBody(),
+    return Scaffold(
+      body: BlocProvider(
+        create: (context) => LoginCubit(getIt.get<AuthRepo>()),
+        child: const LoginViewBody(),
+      ),
     );
   }
 }

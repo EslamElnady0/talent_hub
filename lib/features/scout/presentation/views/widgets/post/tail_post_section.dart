@@ -1,50 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:talent_hub/core/helpers/extensions.dart';
+import 'package:talent_hub/core/models/post_model.dart';
+import 'package:talent_hub/core/models/user_model.dart';
+import 'package:talent_hub/core/routes/app_router.dart';
+import 'package:talent_hub/features/scout/presentation/manger/post_cubit/post_cubit.dart';
+import 'package:talent_hub/features/scout/presentation/views/widgets/post/custom_tail_button.dart';
+import 'package:talent_hub/features/scout/presentation/views/widgets/post/like_button.dart';
 
-class TailPostSection extends StatelessWidget {
+class TailPostSection extends StatefulWidget {
   const TailPostSection({
     super.key,
+    required this.postModel,
+    required this.index,
+    required this.userModel,
   });
+  final PostModel postModel;
+  final int index;
+  final UserModel userModel;
+
+  @override
+  State<TailPostSection> createState() => _TailPostSectionState();
+}
+
+class _TailPostSectionState extends State<TailPostSection> {
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      PostCubit.get(context).isLiked = List<String>.from(widget.postModel.likes)
+          .contains(PostCubit.get(context).currentUser!.email);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15.0),
+    PostCubit postCubit = PostCubit.get(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            children: [
-              FaIcon(
-                FontAwesomeIcons.solidThumbsUp,
-              ),
-              Text(
-                "Like",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
+          LikeButton(
+            onTap: () {
+              postCubit.toggleLike(postModel: widget.postModel);
+            },
+            text: widget.postModel.likes.length.toString(),
+            isLiked: postCubit.isLiked,
           ),
-          Column(
-            children: [
-              FaIcon(
-                FontAwesomeIcons.facebookMessenger,
-              ),
-              Text(
-                "Message",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
+          CustomTailButton(
+            onTap: () {
+              postCubit.showCommentDialog(
+                context: context,
+                postModel: widget.postModel,
+                userModel: widget.userModel,
+              );
+            },
+            icon: FontAwesomeIcons.comments,
+            text: "Comments",
           ),
-          Column(
-            children: [
-              FaIcon(
-                FontAwesomeIcons.share,
-              ),
-              Text(
-                "Share",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
+          CustomTailButton(
+            onTap: () => context.pushNamed(AppRouter.chatInbox),
+            icon: FontAwesomeIcons.message,
+            text: "Chat",
           ),
         ],
       ),

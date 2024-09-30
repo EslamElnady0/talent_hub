@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talent_hub/core/models/user_model.dart';
 
 import 'package:talent_hub/features/chat/presentation/views/chat_details_view.dart';
 import 'package:talent_hub/features/chat/presentation/views/chat_inbox_view.dart';
@@ -7,6 +8,7 @@ import 'package:talent_hub/features/auth/presentation/views/forgot_pass_view/for
 import 'package:talent_hub/features/auth/presentation/views/login_view/login_view.dart';
 import 'package:talent_hub/features/auth/presentation/views/register_view/register_view.dart';
 import 'package:talent_hub/features/player/presentation/views/player_view.dart';
+
 import 'package:talent_hub/features/player/presentation/views/widgets/post/create_post_view.dart';
 import 'package:talent_hub/features/scout/presentation/views/scout_view.dart';
 
@@ -47,7 +49,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => const PlayerView());
 
       case playerProfile:
-        return MaterialPageRoute(builder: (context) => const PlayerProfileView());
+        return MaterialPageRoute(
+            builder: (context) => const PlayerProfileView());
 
       case post:
         return MaterialPageRoute(builder: (context) => const CreatePostView());
@@ -56,7 +59,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => const SplashView());
 
       case chatDetails:
-        return MaterialPageRoute(builder: (context) => const ChatDetailsView());
+        var args = settings.arguments as UserModel;
+        return MaterialPageRoute(
+            builder: (context) => const ChatDetailsView(),
+            settings: RouteSettings(arguments: args));
 
       case chatInbox:
         return MaterialPageRoute(builder: (context) => const ChatInboxView());
