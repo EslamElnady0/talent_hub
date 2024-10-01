@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:talent_hub/core/helpers/app_assets.dart';
 import 'package:talent_hub/core/helpers/spacing.dart';
 import 'package:talent_hub/core/models/post_model.dart';
 
@@ -17,7 +18,9 @@ class HeadPostSection extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 20,
-            backgroundImage: NetworkImage(postModel.imageUrl!),
+            backgroundImage: postModel.imageUrl == null
+                ? AssetImage(AppAssets.player)
+                : NetworkImage(postModel.imageUrl!),
           ),
           hGap(10),
           Column(
