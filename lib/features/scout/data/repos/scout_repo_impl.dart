@@ -35,30 +35,5 @@ class ScoutRepoImpl extends ScoutRepo {
     }
   }
 
-  @override
-  Future<Either<Failure, bool>> setLike({required String postId}) async {
-    try {
-      bool isLike = false;
-      FirebaseFirestore.instance
-          .collection('posts')
-          .doc(postId)
-          .collection('likes')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .set({
-        "like": true,
-      });
 
-      var data = await FirebaseFirestore.instance
-          .collection('posts')
-          .doc(postId)
-          .collection('likes')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
-          .get();
-
-      isLike = data.data()!["like"];
-      return right(isLike);
-    } catch (e) {
-      return left(FirebaseFailure(e.toString()));
-    }
-  }
 }

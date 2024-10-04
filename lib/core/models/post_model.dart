@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PostModel {
@@ -9,12 +8,12 @@ class PostModel {
   String videoUrl;
   String text;
   Timestamp createdAt;
-  String postId;
+  String? postId;
   List likes;
 
   PostModel({
     required this.uId,
-    required this.postId,
+    this.postId,
     required this.name,
     required this.videoUrl,
     required this.text,

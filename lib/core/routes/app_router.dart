@@ -8,14 +8,14 @@ import 'package:talent_hub/features/auth/presentation/views/forgot_pass_view/for
 import 'package:talent_hub/features/auth/presentation/views/login_view/login_view.dart';
 import 'package:talent_hub/features/auth/presentation/views/register_view/register_view.dart';
 
-import 'package:talent_hub/features/player/presentation/views/widgets/post/create_post_view.dart';
+import 'package:talent_hub/features/post/presentation/views/widgets/create_post_view.dart';
+import 'package:talent_hub/features/profile/presentation/views/profile_view.dart';
 import 'package:talent_hub/features/scout/presentation/views/scout_view.dart';
 
 import 'package:talent_hub/features/splash/presentation/views/splash_view.dart';
 
 import '../../features/home/presentation/home_view.dart';
 import '../../features/onboarding/presentation/views/onboarding_view.dart';
-import '../../features/player/presentation/views/player_profile_view.dart';
 
 class AppRouter {
   static const String onboarding = '/onboarding';
@@ -33,6 +33,7 @@ class AppRouter {
   static const String login = '/login';
   static const String register = '/register';
   static const String forgotPassword = '/forgotPassword';
+  static const String profileView = '/ProfileView';
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -44,18 +45,19 @@ class AppRouter {
       case scout:
         return MaterialPageRoute(builder: (context) => const ScoutView());
 
-      // case player:
-      //   return MaterialPageRoute(builder: (context) => const PlayerView());
-
-      case playerProfile:
+      case profileView:
+        var args = settings.arguments as UserModel;
         return MaterialPageRoute(
-            builder: (context) => const PlayerProfileView());
+          builder: (context) => const ProfileView(),
+          settings: RouteSettings(arguments: args),
+        );
 
       case post:
         var args = settings.arguments as UserModel;
         return MaterialPageRoute(
-            builder: (context) => const CreatePostView(),
-            settings: RouteSettings(arguments: args));
+          builder: (context) => const CreatePostView(),
+          settings: RouteSettings(arguments: args),
+        );
 
       case splash:
         return MaterialPageRoute(builder: (context) => const SplashView());

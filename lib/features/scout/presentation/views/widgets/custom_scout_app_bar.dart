@@ -10,7 +10,7 @@ import 'package:talent_hub/core/theme/app_colors.dart';
 
 AppBar customScoutAppBar(BuildContext context, UserModel userModel) {
   return AppBar(
-    backgroundColor: AppColors.white,
+    backgroundColor: Colors.transparent,
     elevation: 0.0,
     centerTitle: true,
     leadingWidth: 65,
@@ -56,7 +56,6 @@ AppBar customScoutAppBar(BuildContext context, UserModel userModel) {
         FaIcon(
           FontAwesomeIcons.futbol,
           color: AppColors.primaryColor,
-          //size: 25,
         ),
         Text('B'),
       ],
@@ -69,7 +68,6 @@ AppBar customScoutAppBar(BuildContext context, UserModel userModel) {
         child: const FaIcon(
           FontAwesomeIcons.facebookMessenger,
           color: AppColors.primaryColor,
-          //size: 25,
         ),
       ),
       hGap(15),
