@@ -41,8 +41,9 @@ class CommentPostSection extends StatelessWidget {
                   text: commentData['commentText'],
                   user: commentData['commentedBy'],
                   imageUrl: commentData['imageUrl'],
-                  time: DateFormat('EEEE, h:mm a')
-                      .format(commentData['commentTime'].toDate()),
+                  time: DateFormat('EEEE, h:mm a').format(
+                    commentData['commentTime'].toDate(),
+                  ),
                 );
               }).toList(),
             ),
