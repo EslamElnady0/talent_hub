@@ -41,6 +41,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
+  bloc: ^8.1.4
   flutter_screenutil: ^5.9.3
   fluttertoast: ^8.2.8
   font_awesome_flutter: ^10.7.0
@@ -58,6 +59,7 @@ dependencies:
   video_thumbnail: ^0.5.3
   conditional_builder_null_safety: ^0.0.6
   intl: ^0.19.0
+  pull_to_refresh: ^2.0.0
 
 dev_dependencies:
   flutter_lints: ^3.0.0

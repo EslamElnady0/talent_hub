@@ -6,5 +6,4 @@ import 'package:talent_hub/core/models/user_model.dart';
 abstract class ScoutRepo {
   Future<Either<Failure, UserModel>> fetchScout();
   Future<Either<Failure, List<PostModel>>> fetchPosts();
-  Future<Either<Failure, bool>> setLike({required String postId});
 }
