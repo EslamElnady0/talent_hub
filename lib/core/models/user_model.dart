@@ -15,7 +15,7 @@ class UserModel {
     required this.age,
     required this.email,
     required this.position,
-    this.role = 'player',
+    required this.role,
     this.imageUrl,
   });
 
