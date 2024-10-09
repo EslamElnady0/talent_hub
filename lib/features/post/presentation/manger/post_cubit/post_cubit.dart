@@ -49,15 +49,6 @@ class PostCubit extends Cubit<PostStates> {
     });
   }
 
-  Future<int> getCommentsCount({required PostModel postModel}) async {
-    CollectionReference commentsRef = FirebaseFirestore.instance
-        .collection('posts')
-        .doc(postModel.postId)
-        .collection('comments');
-    QuerySnapshot snapshot = await commentsRef.get();
-    return snapshot.docs.length;
-  }
-
   void showBottomSheet({
     required BuildContext context,
     required PostModel postModel,
