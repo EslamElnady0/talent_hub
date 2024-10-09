@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:talent_hub/core/helpers/app_assets.dart';
-import 'package:talent_hub/core/helpers/spacing.dart';
 
 class CommentSectionUi extends StatelessWidget {
   const CommentSectionUi({
@@ -15,14 +14,14 @@ class CommentSectionUi extends StatelessWidget {
   final String user;
   final String time;
   final String? imageUrl;
+
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        hGap(10),
         CircleAvatar(
-          radius: 20,
+          radius: 23,
           backgroundImage: imageUrl == null
               ? AssetImage(AppAssets.player)
               : NetworkImage(imageUrl!),
@@ -30,7 +29,7 @@ class CommentSectionUi extends StatelessWidget {
         Expanded(
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-            margin: const EdgeInsets.all(5),
+            margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(12),

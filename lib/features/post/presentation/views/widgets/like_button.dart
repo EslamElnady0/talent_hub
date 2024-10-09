@@ -4,11 +4,12 @@ import 'package:talent_hub/core/helpers/spacing.dart';
 import 'package:talent_hub/core/theme/app_colors.dart';
 
 class LikeButton extends StatelessWidget {
-  const LikeButton(
-      {super.key,
-      required this.onTap,
-      required this.isLiked,
-      required this.text});
+  const LikeButton({
+    super.key,
+    required this.onTap,
+    required this.isLiked,
+    required this.text,
+  });
 
   final void Function()? onTap;
   final bool isLiked;
@@ -24,7 +25,7 @@ class LikeButton extends StatelessWidget {
             isLiked ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
             color: isLiked ? AppColors.primaryColor : AppColors.black,
           ),
-          hGap(8),
+          hGap(5),
           Text(
             "$text likes",
             style: TextStyle(

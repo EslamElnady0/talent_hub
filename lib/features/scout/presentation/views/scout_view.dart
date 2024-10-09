@@ -24,6 +24,7 @@ class ScoutView extends StatelessWidget {
           builder: (context, state) {
             if (state is SuccessScoutState) {
               return Scaffold(
+                resizeToAvoidBottomInset: false,
                 drawer: CustomScoutDrawer(userModel: state.userModel),
                 appBar: customScoutAppBar(context, state.userModel),
                 body: BlocBuilderGetPosts(userModel: state.userModel),
