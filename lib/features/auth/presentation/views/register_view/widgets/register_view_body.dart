@@ -9,6 +9,7 @@ import 'package:talent_hub/core/routes/app_router.dart';
 import 'package:talent_hub/core/theme/app_colors.dart';
 import 'package:talent_hub/features/auth/presentation/manger/signup_cubit/signup_cubit.dart';
 import 'package:talent_hub/features/auth/presentation/manger/signup_cubit/signup_states.dart';
+import 'package:talent_hub/features/auth/presentation/views/register_view/widgets/custom_drop_down.dart';
 import 'package:talent_hub/features/auth/presentation/views/register_view/widgets/custom_text_form_field.dart';
 import 'package:talent_hub/features/auth/presentation/views/register_view/widgets/register_header.dart';
 import 'package:talent_hub/features/onboarding/presentation/views/widgets/custom_button.dart';
@@ -160,6 +161,24 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                           }
                           return null;
                         },
+                      ),
+                      vGap(16),
+                      CustomDropDown(
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please select your role player or scout';
+                          }
+                          if (value.isEmpty) {
+                            return 'Please select your role player or scout';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          if (value != null) {
+                            cubit.roleController.text = value;
+                          }
+                        },
+                        hintText: 'Role',
                       ),
                     ],
                   ),

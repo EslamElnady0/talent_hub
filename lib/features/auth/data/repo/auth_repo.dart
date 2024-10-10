@@ -36,6 +36,7 @@ class AuthRepoImpl extends AuthRepo {
     String phone,
     String age,
     String position,
+    String role,
     String? imageUrl,
   ) async {
     try {
@@ -49,6 +50,7 @@ class AuthRepoImpl extends AuthRepo {
         age: age,
         email: email,
         position: position,
+        role: role,
         imageUrl: imageUrl,
       ));
       return const Right(true);
@@ -83,6 +85,7 @@ abstract class AuthRepo {
     String phone,
     String age,
     String position,
+    String role,
     String? imageUrl,
   );
   Future<Either<Failure, bool>> signOut();

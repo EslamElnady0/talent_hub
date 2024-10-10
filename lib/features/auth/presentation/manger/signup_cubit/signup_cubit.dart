@@ -15,6 +15,7 @@ class SignupCubit extends Cubit<SignupStates> {
   var phoneController = TextEditingController();
   var ageController = TextEditingController();
   var positionController = TextEditingController();
+  var roleController = TextEditingController();
   File? imageFile;
 
   final AuthRepo _authRepo;
@@ -55,6 +56,7 @@ class SignupCubit extends Cubit<SignupStates> {
       phoneController.text,
       ageController.text,
       positionController.text,
+      roleController.text,
       imageUrl,
     );
     result.fold((failure) {
@@ -72,6 +74,7 @@ class SignupCubit extends Cubit<SignupStates> {
     phoneController.dispose();
     ageController.dispose();
     positionController.dispose();
+    roleController.dispose();
     imageFile = null;
     return super.close();
   }
