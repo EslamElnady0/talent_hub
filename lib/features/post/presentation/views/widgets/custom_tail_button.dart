@@ -10,10 +10,12 @@ class CustomTailButton extends StatelessWidget {
     required this.text,
     this.color,
     this.iconColor = Colors.black,
+    required this.count,
   });
   final void Function()? onTap;
   final IconData icon;
   final String text;
+  final String count;
   final Color? color;
   final Color? iconColor;
   @override
@@ -26,9 +28,9 @@ class CustomTailButton extends StatelessWidget {
             icon,
             color: iconColor,
           ),
-          hGap(8),
+          hGap(5),
           Text(
-            text,
+            '$count $text',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: color,

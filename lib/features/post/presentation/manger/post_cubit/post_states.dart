@@ -11,9 +11,5 @@ class FailurePostState extends PostStates {
   FailurePostState({required this.error});
 }
 
-class LikePostSuccessPostState extends PostStates {}
+class ChangeScrollerPostState extends PostStates {}
 
-class LikePostFailurePostState extends PostStates {
-  final String error;
-  LikePostFailurePostState({required this.error});
-}

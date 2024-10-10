@@ -30,8 +30,8 @@ class CommentPostSection extends StatelessWidget {
         }
         return Column(
           children: [
-            if (snapshot.data!.docs.isNotEmpty)
-              const Divider(endIndent: 10, indent: 10),
+            const Divider(endIndent: 10, indent: 10),
+            const SizedBox(height: 10),
             ListView(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -47,6 +47,16 @@ class CommentPostSection extends StatelessWidget {
                 );
               }).toList(),
             ),
+            if (snapshot.data!.docs.isEmpty)
+              Column(
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * .333),
+                  const Text(
+                    'No comment yet',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ],
+              )
           ],
         );
       },

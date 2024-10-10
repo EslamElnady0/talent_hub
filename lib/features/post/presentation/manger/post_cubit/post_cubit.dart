@@ -2,11 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:talent_hub/core/helpers/extensions.dart';
+import 'package:talent_hub/core/helpers/show_toast.dart';
+import 'package:talent_hub/core/helpers/spacing.dart';
 import 'package:talent_hub/core/models/post_model.dart';
 import 'package:talent_hub/core/models/user_model.dart';
 import 'package:talent_hub/core/theme/app_colors.dart';
 import 'package:talent_hub/features/post/presentation/manger/post_cubit/post_states.dart';
+import 'package:talent_hub/features/post/presentation/views/widgets/comment_post_section.dart';
 import 'package:talent_hub/features/scout/data/repos/scout_repo_impl.dart';
 
 class PostCubit extends Cubit<PostStates> {
@@ -17,8 +19,7 @@ class PostCubit extends Cubit<PostStates> {
   List<PostModel> posts = [];
   TextEditingController commentController = TextEditingController();
 
-  final currentUser = FirebaseAuth.instance.currentUser!;
-  bool isLiked = false;
+  final currentUser = FirebaseAuth.instance.currentUser!.uid;
 
   Future<void> getPosts() async {
     emit(LoadingPostState());
@@ -48,67 +49,128 @@ class PostCubit extends Cubit<PostStates> {
     });
   }
 
-  void showCommentDialog({
+  void showBottomSheet({
     required BuildContext context,
     required PostModel postModel,
     required UserModel userModel,
   }) {
-    showDialog(
+    showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Add Comment'),
-        content: TextField(
-          controller: commentController,
-          decoration: const InputDecoration(hintText: 'Write Comment..'),
+      builder: (context) => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 30),
+        child: Column(
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+              child: Row(
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.pop(context),
+                    child: const Icon(Icons.arrow_back),
+                  ),
+                  const Spacer(),
+                  const Text(
+                    "Comments",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  const Spacer(),
+                ],
+              ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: CommentPostSection(postModel: postModel),
+                ),
+              ),
+            ),
+            vGap(20),
+            Padding(
+              padding: EdgeInsets.only(
+                left: 10.0,
+                right: 10.0,
+                bottom: MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: TextFormField(
+                controller: commentController,
+                onFieldSubmitted: (value) {
+                  if (commentController.text.isNotEmpty) {
+                    addComment(
+                      commentText: commentController.text,
+                      postModel: postModel,
+                      userModel: userModel,
+                    );
+                    commentController.clear();
+                  } else {
+                    showToast(
+                      toastMsg: "Empty comment",
+                      state: ToastStates.warining,
+                    );
+                  }
+                },
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  hintText: 'Add comment..',
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      if (commentController.text.isNotEmpty) {
+                        addComment(
+                          commentText: commentController.text,
+                          postModel: postModel,
+                          userModel: userModel,
+                        );
+                        commentController.clear();
+                      } else {
+                        showToast(
+                          toastMsg: "Empty comment",
+                          state: ToastStates.warining,
+                        );
+                      }
+                    },
+                    icon: const Icon(
+                      Icons.send,
+                      color: AppColors.primaryColor,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              context.pop();
-              commentController.clear();
-            },
-            child: const Text(
-              'Cancel',
-              style: TextStyle(color: AppColors.black),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              addComment(
-                commentText: commentController.text,
-                postModel: postModel,
-                userModel: userModel,
-              );
-              context.pop();
-              commentController.clear();
-            },
-            child: const Text(
-              'Post',
-              style: TextStyle(color: AppColors.primaryColor),
-            ),
-          ),
-        ],
       ),
     );
   }
 
-  void toggleLike({required PostModel postModel}) {
-    isLiked = !isLiked;
-    emit(LikePostSuccessPostState());
-    DocumentReference postRef =
-        FirebaseFirestore.instance.collection('posts').doc(postModel.postId);
-    if (isLiked) {
-      postRef.update({
-        "likes": FieldValue.arrayUnion(
-          [currentUser.email],
-        )
-      });
-    } else {
-      postRef.update({
-        "likes": FieldValue.arrayRemove(
-          [currentUser.email],
-        )
-      });
+  Future<void> likePost({required PostModel postModel}) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(postModel.postId)
+          .update(
+        {
+          'likes': FieldValue.arrayUnion([currentUser])
+        },
+      );
+    } on FirebaseException {
+      showToast(toastMsg: 'Error liking post', state: ToastStates.error);
+    }
+  }
+
+  Future<void> dislikePost({required PostModel postModel}) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(postModel.postId)
+          .update(
+        {
+          'likes': FieldValue.arrayRemove([currentUser])
+        },
+      );
+    } on FirebaseException {
+      showToast(toastMsg: 'Error liking post', state: ToastStates.error);
     }
   }
 }
