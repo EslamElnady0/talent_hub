@@ -19,9 +19,13 @@ class LastMessageStreamBuilder extends StatelessWidget {
             .getLastMessage(receivingUserId: user.id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Text(isMessageText
-                ? snapshot.data!.message!
-                : formatDateToHoursAndMins(snapshot.data!.createdAt));
+            return Text(
+              isMessageText
+                  ? snapshot.data!.message!
+                  : formatDateToHoursAndMins(snapshot.data!.createdAt),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            );
           } else {
             return const SizedBox();
           }
