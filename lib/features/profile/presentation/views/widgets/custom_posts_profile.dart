@@ -22,9 +22,11 @@ class CustomPostsProfile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Divider(indent: 10, endIndent: 10),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0),
-          child: Text('Your posts : '),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: userModel.id == getIt.get<FirebaseAuth>().currentUser!.uid
+              ? const Text('Your posts : ')
+              : const Text('his posts : '),
         ),
         BlocProvider(
           create: (context) => PostCubit()..getPosts(),
@@ -35,7 +37,7 @@ class CustomPostsProfile extends StatelessWidget {
                     .collection("posts")
                     .where(
                       "uId",
-                      isEqualTo: FirebaseAuth.instance.currentUser!.uid,
+                      isEqualTo: userModel.id,
                     )
                     .snapshots()
                     .map(

@@ -6,6 +6,8 @@ import 'package:talent_hub/core/helpers/spacing.dart';
 import 'package:talent_hub/core/models/post_model.dart';
 import 'package:talent_hub/core/models/user_model.dart';
 import 'package:talent_hub/core/routes/app_router.dart';
+import 'package:talent_hub/core/theme/app_colors.dart';
+import 'package:talent_hub/core/utils/get_user_by_id.dart';
 import 'package:talent_hub/features/post/presentation/views/widgets/custom_tail_button.dart';
 import 'package:talent_hub/features/post/presentation/views/widgets/like_button.dart';
 import '../../manger/post_cubit/post_cubit.dart';
@@ -78,7 +80,19 @@ class TailPostSection extends StatelessWidget {
           ),
           if (userModel.role == "scout")
             CustomTailButton(
-              onTap: () => context.pushNamed(AppRouter.chatInbox),
+              onTap: () async {
+                showDialog(
+                    context: context,
+                    builder: (context) => const Center(
+                            child: CircularProgressIndicator(
+                          color: AppColors.primaryColor,
+                        )));
+                UserModel user = await getUserById(postModel.uId);
+                if (context.mounted) {
+                  context.pop();
+                  context.pushNamed(AppRouter.chatDetails, arguments: user);
+                }
+              },
               icon: Icons.chat_outlined,
               text: "Chat",
               count: '',

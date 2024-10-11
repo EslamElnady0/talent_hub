@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:talent_hub/core/DI/dependency_injection.dart';
 import 'package:talent_hub/core/helpers/app_assets.dart';
 import 'package:talent_hub/core/models/user_model.dart';
 import 'package:talent_hub/core/theme/app_colors.dart';
@@ -45,20 +47,22 @@ class CustomStackImage extends StatelessWidget {
                         ),
                 ),
               ),
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: Colors.grey[300]!.withOpacity(0.5),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.camera_alt_outlined,
-                    color: AppColors.primaryColor,
-                    size: 20,
-                  ),
-                  onPressed: () async {
-                    profileCubit.getProfileImage();
-                  },
-                ),
-              ),
+              userModel.id == getIt.get<FirebaseAuth>().currentUser!.uid
+                  ? CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.grey[300]!.withOpacity(0.5),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.camera_alt_outlined,
+                          color: AppColors.primaryColor,
+                          size: 20,
+                        ),
+                        onPressed: () async {
+                          profileCubit.getProfileImage();
+                        },
+                      ),
+                    )
+                  : const SizedBox(),
             ],
           ),
         ],
