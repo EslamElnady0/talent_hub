@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_hub/core/DI/dependency_injection.dart';
+import 'package:talent_hub/core/helpers/extensions.dart';
 import 'package:talent_hub/core/theme/app_colors.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/get%20messages%20cubit/get_messages_cubit.dart';
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20file%20cubit/send_file_cubit.dart';
@@ -9,6 +10,7 @@ import 'package:talent_hub/features/chat/presentation/view%20models/send%20recor
 import 'package:talent_hub/features/chat/presentation/view%20models/send%20text%20cubit/send_text_cubit.dart';
 
 import '../../../../core/models/user_model.dart';
+import '../../../../core/routes/app_router.dart';
 import '../../../../core/theme/app_text_styles.dart';
 import 'widgets/chat_details_appbar_leading.dart';
 import 'widgets/chat_details_view_body.dart';
@@ -24,7 +26,11 @@ class ChatDetailsView extends StatelessWidget {
         leadingWidth: 55.w,
         backgroundColor: AppColors.primaryColor,
         leading: ChatDetailsAppBarLeading(image: args.imageUrl),
-        title: Text(args.name, style: AppTextStyles.font20WhiteW600),
+        title: InkWell(
+            onTap: () {
+              context.pushNamed(AppRouter.profileView, arguments: args);
+            },
+            child: Text(args.name, style: AppTextStyles.font20WhiteW600)),
         actions: [
           IconButton(
             onPressed: () {},
