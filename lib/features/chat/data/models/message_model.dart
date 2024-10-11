@@ -26,6 +26,16 @@ class MessageModel {
     };
   }
 
+  factory MessageModel.empty() {
+    return MessageModel(
+      senderId: "",
+      receiverId: "",
+      message: "",
+      messageType: MessageType.text,
+      createdAt: DateTime.now(),
+      textMessageId: "",
+    );
+  }
   factory MessageModel.fromMap(Map<String, dynamic> map) {
     return MessageModel(
       senderId: map['senderId'],

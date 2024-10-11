@@ -47,4 +47,25 @@ class GetMessagesCubit extends Cubit<GetMessagesState> {
       );
     }
   }
+
+  Stream<MessageModel> getLastMessage({required String receivingUserId}) {
+    try {
+      return getIt
+          .get<FirebaseFirestore>()
+          .collection('users')
+          .doc(getIt.get<FirebaseAuth>().currentUser!.uid)
+          .collection('chats')
+          .doc(receivingUserId)
+          .collection('messages')
+          .orderBy('createdAt')
+          .limitToLast(1)
+          .snapshots()
+          .map((event) {
+        return event.docs.map((e) => MessageModel.fromMap(e.data())).first;
+      });
+    } catch (e) {
+      log(e.toString());
+      return Stream.value(MessageModel.empty());
+    }
+  }
 }
