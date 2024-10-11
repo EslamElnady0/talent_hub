@@ -21,7 +21,9 @@ class LastMessageStreamBuilder extends StatelessWidget {
           if (snapshot.hasData) {
             return Text(
               isMessageText
-                  ? snapshot.data!.message!
+                  ? snapshot.data!.senderId == user.id
+                      ? "${user.name.split(" ").first.trim()} : ${snapshot.data!.message}"
+                      : "You : ${snapshot.data!.message}"
                   : formatDateToHoursAndMins(snapshot.data!.createdAt),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
