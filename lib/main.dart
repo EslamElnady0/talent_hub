@@ -22,7 +22,5 @@ void main() async {
       systemNavigationBarColor: Colors.transparent,
     ),
   );
-  // make flutter draw behind navigation bar
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
   runApp(const TalentHubApp());
 }
