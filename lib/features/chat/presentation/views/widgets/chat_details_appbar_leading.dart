@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talent_hub/core/helpers/extensions.dart';
 
 import '../../../../../core/theme/app_colors.dart';
-import 'user_image_circle_avatar.dart';
+import '../../../../../core/widgets/user_image_circle_avatar.dart';
 
 class ChatDetailsAppBarLeading extends StatelessWidget {
   final String? image;

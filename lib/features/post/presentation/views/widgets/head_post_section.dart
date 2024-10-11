@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:talent_hub/core/helpers/app_assets.dart';
 import 'package:talent_hub/core/helpers/extensions.dart';
 import 'package:talent_hub/core/helpers/spacing.dart';
 import 'package:talent_hub/core/models/post_model.dart';
@@ -9,6 +8,7 @@ import 'package:talent_hub/core/theme/app_colors.dart';
 
 import '../../../../../core/routes/app_router.dart';
 import '../../../../../core/utils/get_user_by_id.dart';
+import '../../../../../core/widgets/user_image_circle_avatar.dart';
 
 class HeadPostSection extends StatelessWidget {
   const HeadPostSection({super.key, required this.postModel});
@@ -38,11 +38,9 @@ class HeadPostSection extends StatelessWidget {
                 context.pushNamed(AppRouter.profileView, arguments: user);
               }
             },
-            child: CircleAvatar(
+            child: UserImageCircleAvatar(
+              image: postModel.imageUrl,
               radius: 25,
-              backgroundImage: postModel.imageUrl == null
-                  ? AssetImage(AppAssets.player)
-                  : NetworkImage(postModel.imageUrl!),
             ),
           ),
           hGap(10),

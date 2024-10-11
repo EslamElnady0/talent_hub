@@ -1,12 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:talent_hub/core/helpers/app_assets.dart';
 import 'package:talent_hub/core/helpers/extensions.dart';
 import 'package:talent_hub/core/helpers/spacing.dart';
 import 'package:talent_hub/core/models/user_model.dart';
 import 'package:talent_hub/core/routes/app_router.dart';
 import 'package:talent_hub/core/theme/app_colors.dart';
+import '../../../../../core/widgets/user_image_circle_avatar.dart';
 
 AppBar customScoutAppBar(BuildContext context, UserModel userModel) {
   return AppBar(
@@ -20,13 +19,9 @@ AppBar customScoutAppBar(BuildContext context, UserModel userModel) {
         child: Stack(
           alignment: AlignmentDirectional.bottomEnd,
           children: [
-            CircleAvatar(
+            UserImageCircleAvatar(
+              image: userModel.imageUrl,
               radius: 25,
-              backgroundImage: userModel.imageUrl == null
-                  ? AssetImage(AppAssets.player)
-                  : CachedNetworkImageProvider(
-                      userModel.imageUrl ?? "",
-                    ),
             ),
             const Padding(
               padding: EdgeInsetsDirectional.only(

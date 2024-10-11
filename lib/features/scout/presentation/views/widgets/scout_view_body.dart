@@ -21,7 +21,7 @@ class ScoutViewBody extends StatelessWidget {
     return StreamBuilder<List<PostModel>?>(
       stream: getIt<FirebaseFirestore>()
           .collection("posts")
-          .orderBy("createdAt", descending: true)
+          .orderBy("createdAt", descending: false)
           .snapshots()
           .map(
             (event) => event.docs
@@ -45,6 +45,7 @@ class ScoutViewBody extends StatelessWidget {
               if (userModel.role == 'player')
                 AddPostSection(userModel: userModel),
               ListView.separated(
+                reverse: true,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(10),

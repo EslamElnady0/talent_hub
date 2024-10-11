@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:talent_hub/core/DI/dependency_injection.dart';
@@ -6,6 +5,8 @@ import 'package:talent_hub/core/helpers/app_assets.dart';
 import 'package:talent_hub/core/models/user_model.dart';
 import 'package:talent_hub/core/theme/app_colors.dart';
 import 'package:talent_hub/features/profile/presentation/manger/profile_cubit.dart';
+
+import '../../../../../core/widgets/user_image_circle_avatar.dart';
 
 class CustomStackImage extends StatelessWidget {
   const CustomStackImage({super.key, required this.userModel});
@@ -38,13 +39,9 @@ class CustomStackImage extends StatelessWidget {
               CircleAvatar(
                 backgroundColor: AppColors.white,
                 radius: 62,
-                child: CircleAvatar(
+                child: UserImageCircleAvatar(
+                  image: userModel.imageUrl,
                   radius: 60,
-                  backgroundImage: profileCubit.profileImage != null
-                      ? FileImage(profileCubit.profileImage!)
-                      : CachedNetworkImageProvider(
-                          userModel.imageUrl ?? "",
-                        ),
                 ),
               ),
               userModel.id == getIt.get<FirebaseAuth>().currentUser!.uid
