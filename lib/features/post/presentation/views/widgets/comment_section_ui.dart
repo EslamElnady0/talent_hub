@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talent_hub/core/helpers/app_assets.dart';
+import 'package:talent_hub/core/widgets/user_image_circle_avatar.dart';
 
 class CommentSectionUi extends StatelessWidget {
   const CommentSectionUi({
@@ -20,11 +20,9 @@ class CommentSectionUi extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CircleAvatar(
+        UserImageCircleAvatar(
+          image: imageUrl,
           radius: 23,
-          backgroundImage: imageUrl == null
-              ? AssetImage(AppAssets.player)
-              : NetworkImage(imageUrl!),
         ),
         Expanded(
           child: Container(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:talent_hub/core/helpers/app_assets.dart';
 import 'package:talent_hub/core/helpers/extensions.dart';
 import 'package:talent_hub/core/helpers/show_toast.dart';
 import 'package:talent_hub/core/helpers/spacing.dart';
@@ -50,7 +49,8 @@ class _RegisterViewBodyState extends State<RegisterViewBody> {
                               radius: 70,
                               backgroundImage: cubit.imageFile != null
                                   ? FileImage(cubit.imageFile!)
-                                  : AssetImage(AppAssets.player),
+                                  : const AssetImage(
+                                      'assets/images/default_user.png'),
                             );
                           },
                         ),

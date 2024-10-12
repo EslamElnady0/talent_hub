@@ -1,13 +1,12 @@
 import 'dart:io';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:talent_hub/core/helpers/app_assets.dart';
 import 'package:talent_hub/core/helpers/extensions.dart';
 import 'package:talent_hub/core/helpers/show_toast.dart';
 import 'package:talent_hub/core/helpers/spacing.dart';
 import 'package:talent_hub/core/theme/app_colors.dart';
+import 'package:talent_hub/core/widgets/user_image_circle_avatar.dart';
 import 'package:talent_hub/features/post/presentation/manger/create_post-cubit/create_post_cubit.dart';
 import 'package:talent_hub/features/post/presentation/manger/create_post-cubit/create_post_states.dart';
 import 'package:talent_hub/features/post/presentation/manger/post_cubit/post_cubit.dart';
@@ -132,14 +131,9 @@ class CreatePostViewState extends State<CreatePostView> {
                                       CrossAxisAlignment.baseline,
                                   textBaseline: TextBaseline.alphabetic,
                                   children: [
-                                    CircleAvatar(
+                                    UserImageCircleAvatar(
+                                      image: userModel.imageUrl,
                                       radius: 30,
-                                      backgroundImage:
-                                          userModel.imageUrl == null
-                                              ? AssetImage(AppAssets.player)
-                                              : CachedNetworkImageProvider(
-                                                  userModel.imageUrl!,
-                                                ),
                                     ),
                                     hGap(10),
                                     Column(
