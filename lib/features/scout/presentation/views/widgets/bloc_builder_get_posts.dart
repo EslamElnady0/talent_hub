@@ -6,8 +6,8 @@ import 'package:talent_hub/core/helpers/show_toast.dart';
 import 'package:talent_hub/core/models/user_model.dart';
 import 'package:talent_hub/features/post/presentation/manger/post_cubit/post_cubit.dart';
 import 'package:talent_hub/features/post/presentation/manger/post_cubit/post_states.dart';
+import 'package:talent_hub/features/post/presentation/views/widgets/add_post_section.dart';
 import 'package:talent_hub/features/scout/presentation/manger/scout_cubit/scout_cubit.dart';
-import 'package:talent_hub/features/scout/presentation/views/widgets/list_view_scout_loading_indicator.dart';
 import 'package:talent_hub/features/scout/presentation/views/widgets/scout_view_body.dart';
 
 class BlocBuilderGetPosts extends StatelessWidget {
@@ -36,8 +36,15 @@ class BlocBuilderGetPosts extends StatelessWidget {
             condition: PostCubit.get(context).posts.isNotEmpty,
             builder: (context) => ScoutViewBody(
                 posts: PostCubit.get(context).posts, userModel: userModel),
-            fallback: (context) =>
-                const ListViewHomeLoadingIndicator(isPostView: true),
+            fallback: (context) => Column(
+              children: [
+                if (userModel.role == 'player')
+                  AddPostSection(userModel: userModel),
+                const Spacer(),
+                const Text("No posted added yet."),
+                const Spacer(),
+              ],
+            ),
           ),
         );
       },
