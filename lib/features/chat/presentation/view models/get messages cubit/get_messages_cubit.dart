@@ -26,7 +26,7 @@ class GetMessagesCubit extends Cubit<GetMessagesState> {
           .collection('chats')
           .doc(receivingUserId)
           .collection('messages')
-          .orderBy('createdAt')
+          .orderBy('createdAt', descending: true)
           .snapshots()
           .map((event) {
         WidgetsBinding.instance.addPostFrameCallback((_) => scrollToBottom());
@@ -41,7 +41,7 @@ class GetMessagesCubit extends Cubit<GetMessagesState> {
   scrollToBottom() {
     if (scrollController.hasClients) {
       scrollController.animateTo(
-        scrollController.position.maxScrollExtent,
+        scrollController.position.minScrollExtent,
         duration: const Duration(milliseconds: 500),
         curve: Curves.easeIn,
       );

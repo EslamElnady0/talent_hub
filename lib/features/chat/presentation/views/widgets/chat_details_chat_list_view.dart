@@ -39,6 +39,7 @@ class ChatDetailsChatListView extends StatelessWidget {
                     ));
                   } else if (snapshot.data!.isNotEmpty) {
                     return ListView.separated(
+                      reverse: true,
                       controller:
                           context.read<GetMessagesCubit>().scrollController,
                       itemCount: snapshot.data!.length,
