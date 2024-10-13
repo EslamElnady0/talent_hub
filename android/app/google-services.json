@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "808698054506",
+    "project_id": "talent-hub-ba77a",
+    "storage_bucket": "talent-hub-ba77a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808698054506:android:b26647c08b4dc362e54713",
+        "android_client_info": {
+          "package_name": "com.hub.talent_hub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUwILR-4qEeJbw83wvriLsqAnqdfmb6Tc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
