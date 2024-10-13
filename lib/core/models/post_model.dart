@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PostModel {
@@ -23,9 +22,6 @@ class PostModel {
   });
 
   factory PostModel.fromJson(Map<String, dynamic> json) {
-    json.forEach((key, value) {
-      log("key: $key value: $value");
-    });
     return PostModel(
       uId: json['uId'] as String,
       postId: json['postId'] as String,

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:talent_hub/core/models/post_model.dart';
 import 'package:video_player/video_player.dart';
@@ -15,13 +16,18 @@ class VideoPostSection extends StatefulWidget {
 class _VideoPostSectionState extends State<VideoPostSection> {
   late VideoPlayerController controller;
   bool isPlay = false;
-
+  bool isLoaded = false;
   Future<void> initializeVideoPlayer() async {
-    controller = VideoPlayerController.network(
-      widget.postModel.videoUrl,
-    );
-    await controller.initialize();
-    setState(() {});
+    try {
+      controller = VideoPlayerController.network(
+        widget.postModel.videoUrl,
+      );
+      await controller.initialize();
+      isLoaded = true;
+      setState(() {});
+    } catch (e) {
+      log("Error initializing video player: $e");
+    }
   }
 
   @override
@@ -56,11 +62,15 @@ class _VideoPostSectionState extends State<VideoPostSection> {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: SizedBox(
-              height: 250,
-              width: double.infinity,
-              child: VideoPlayer(controller),
-            ),
+            child: isLoaded
+                ? AspectRatio(
+                    aspectRatio: controller.value.aspectRatio,
+                    child: VideoPlayer(controller))
+                : SizedBox(
+                    height: 250,
+                    width: double.infinity,
+                    child: VideoPlayer(controller),
+                  ),
           ),
           Icon(
             !isPlay ? Icons.play_arrow : Icons.pause,
